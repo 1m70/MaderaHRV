@@ -1,0 +1,18 @@
+{% set site_url = url('index')|trim('/') %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width" />
+    <title>{% block title %}{% block page_title '' %} | {% block site_title 'MADERA' %}{% endblock %}</title>
+    {% block stylesheets '' %}
+</head>
+<body id="page-top">
+
+{% block body '' %}
+{% block javascripts '' %}
+{% block final_javascripts '' %}
+
+</body>
+</html>
