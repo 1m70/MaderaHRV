@@ -1,48 +1,53 @@
-<!-- Navigation -->
-<nav class="navbar navbar-expand-lg bg-secondary text-uppercase fixed-top" id="mainNav">
-    <div class="container">
-        <a class="navbar-brand js-scroll-trigger" href="#page-top">Madera</a>
-        <button class="navbar-toggler navbar-toggler-right text-uppercase font-weight-bold bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-            Menu
-            <i class="fas fa-bars"></i>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarResponsive">
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item mx-0 mx-lg-1">
-                    <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#portfolio">Portfolio</a>
-                </li>
-                <li class="nav-item mx-0 mx-lg-1">
-                    <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#about">About</a>
-                </li>
-                <li class="nav-item mx-0 mx-lg-1">
-                    <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#contact">Contact</a>
-                </li>
-            </ul>
-        </div>
-    </div>
-</nav>
+<!-- MENU -->
+<nav class="navbar navbar-default navbar-fixed-top">
 
-<!-- Masthead -->
-<header class="masthead bg-primary text-white text-center">
-    <div class="container d-flex align-items-center flex-column">
+    <div class="container" id="menu">
 
-        <!-- Masthead Avatar Image -->
-        <img class="masthead-avatar mb-5" src="img/avataaars.svg" alt="">
+        <div class="row">
 
-        <!-- Masthead Heading -->
-        <h1 class="masthead-heading text-uppercase mb-0">Start Bootstrap</h1>
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
 
-        <!-- Icon Divider -->
-        <div class="divider-custom divider-light">
-            <div class="divider-custom-line"></div>
-            <div class="divider-custom-icon">
-                <i class="fas fa-star"></i>
+                <a class="navbar-brand" href="/" id="logo_ecloz"><img src="{{ asset('img/oeuvres/logo-ecloz.png') }}"></a>
             </div>
-            <div class="divider-custom-line"></div>
-        </div>
 
-        <!-- Masthead Subheading -->
-        <p class="masthead-subheading font-weight-light mb-0">Graphic Artist - Web Designer - Illustrator</p>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul id="main_menu" class="nav navbar-nav">
+                    <li><a href="/#artiste" id="lienArtiste">L'artiste</a></li>
+                    <li><a href="" {% if active_link == 'catalogue' %} {{ "class=\"active_link\"" }} {% endif %}>Le Catalogue</a></li>
+                    <li><a href="/#contact" id="lienContact">Contact</a></li>
+                </ul>
 
-    </div>
-</header>
+                <ul class="nav navbar-nav navbar-right">
+                    {%  if (app.user is not null and (app.user.roles[0] == 'ROLE_LOUEUR'))  %}
+                        <li><a {% if active_link == 'administration' %} {{ "class=\"active_link\"" }} {% endif %} href="">Administration</a></li>
+                    {% endif %}
+
+                    {%  if (app.user is not null and (app.user.roles[0] == 'ROLE_MEMBRE'))  %}
+                        <li><a href="" {% if active_link == 'monCompteUser' %} {{ "class=\"active_link\"" }} {% endif %}>Mon  Compte</a></li>
+                        <li><a href="" {% if active_link == 'panier' %} {{ "class=\"active_link\"" }} {% endif %}>Ma  Sélection</a></li>
+                    {% endif %}
+
+                    {%  if is_granted('IS_AUTHENTICATED_FULLY')%}
+                        <li><a href="{{ url('deconnexion') }}">Déconnexion</a></li>
+                    {% else %}
+                        <li><a href="" {% if active_link == 'login' %} {{ "class=\"active_link\"" }} {% endif %}>Se  Connecter</a></li>
+                        <li><a href="" {% if active_link == 'inscription' %} {{ "class=\"active_link\"" }} {% endif %}>Inscription</a>
+                    {% endif %}
+                </ul>
+            </div><!-- /.navbar-collapse -->
+
+        </div> <!-- /.row -->
+
+    </div><!-- /#menu -->
+
+</nav>
+<!-- FIN MENU -->
+

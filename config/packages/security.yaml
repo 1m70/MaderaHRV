@@ -1,22 +1,44 @@
 security:
+    encoders:
+        App\Entity\Client:
+            algorithm  : bcrypt
+            cost: 12
     # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
     providers:
         in_memory: { memory: ~ }
+        client_provider:
+            entity:
+                class: App\Entity\Client
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
         main:
+#            access_denied_handler: App\Controller\Security\AccessDeniedHandler
             anonymous: true
+            form_login:
+              login_path: security_connexion
+              check_path: security_connexion
+            http_basic: ~
+            provider: client_provider
+            logout:
+              path:   /deconnexion
+              target: /
 
             # activate different ways to authenticate
-            # https://symfony.com/doc/current/security.html#firewalls-authentication
 
-            # https://symfony.com/doc/current/security/impersonating_user.html
-            # switch_user: true
+            # http_basic: true
+            # https://symfony.com/doc/current/security.html#a-configuring-how-your-users-will-authenticate
+
+            # form_login: true
+            # https://symfony.com/doc/current/security/form_login_setup.html
 
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-        # - { path: ^/admin, roles: ROLE_ADMIN }
-        # - { path: ^/profile, roles: ROLE_USER }
+         - { path: ^/admin/admin, roles: ROLE_LOUEUR }
+        # - { path: ^/profile, roles: ROLE_MEMBRE }
+
+    role_hierarchy:
+        ROLE_LOUEUR: ROLE_MEMBRE
+        ROLE_ADMIN: [ROLE_LOUEUR, ROLE_ALLOWED_TO_SWITCH]
