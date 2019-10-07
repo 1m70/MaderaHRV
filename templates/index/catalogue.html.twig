@@ -1,0 +1,100 @@
+{% extends 'layout.html.twig' %}
+{% set current = app.request.get('p') %}
+{% set active_link = 'catalogue' %}
+{% block page_title %}
+    Catalogue
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+{% endblock %}
+
+    {% block content %}
+        <main class="no-bg">
+            <section id="catalogue">
+
+                <div class="container">
+                    <div class="row">
+                        <div class="titre_catalogue">
+                            <div class="col-xs-12">
+                                <h2>Le Catalogue</h2>
+                            </div>
+
+                            <div class="col-xs-5 col-sm-3 col-md-3" id="trait_bleu"></div>
+
+                        </div>
+                    </div> <!-- /.row -->
+
+                    <div class="container_catalogue animated fadeInLeftBig container">
+                        <div class="row">
+                            <div class="col-sm-3" style="padding-left: 30px;">
+                                {% form_theme searchForm 'bootstrap_4_layout.html.twig' %}
+                                {{ form_start(searchForm) }}
+                                    {{ form_row(searchForm.tri) }}
+                                    {{ form_row(searchForm.nomOeuvre) }}
+                                    <label for="">Type</label>
+                                    <hr>
+                                    {{ form_row(searchForm.categorie) }}
+                                    {{ form_row(searchForm.supportOeuvre) }}
+                                    <label for="">Tarifs</label>
+                                    <hr>
+                                    {{ form_row(searchForm.prixLocationMax) }}
+                                    {{ form_row(searchForm.prixVenteMax) }}
+                                    <input type="submit" value="rechercher">
+                                {{ form_end(searchForm) }}
+                            </div>
+                            <div class="col-sm-9">
+                                {% for oeuvre in oeuvres %}
+
+                                    <div class="col-xs-6 col-sm-4 col-md-3 apercu_catalogue">
+                                        <div class="image-gallerie">
+
+                                            <a href="{{ oeuvre | oeuvrelink}}">
+                                                <img class="img-responsive" src="{{ vich_uploader_asset(oeuvre, 'imageFile') | imagine_filter('thumb') }}">
+                                                <div class="overlay_catalogue"> <span>{{ oeuvre.nomOeuvre }}</span></div>
+                                            </a>
+                                        </div>
+                                    </div>
+
+                                {% else %}
+                                    <p style="font-size: 20px">
+                                        Aucun résultat pour cette recherche ...
+                                    </p>
+                                {% endfor %}
+                            </div>
+                        </div>	<!-- /.container_catalogue -->
+                    </div> <!-- /.row -->
+
+                    <div class="row">
+                        <div class="pagination">
+                                {{ knp_pagination_render(oeuvres) }}
+                            </div> <!-- /.pagination -->
+                    </div> <!-- /.row -->
+
+                </div> <!-- /.container -->
+
+            </section>
+
+        </main>
+    {% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        $(document).ready(function () {
+           $('#oeuvre_search_categorie, #categorie').removeClass('form-control');
+
+            $("#categorie").select2({
+                placeholder: "Sélectionner une catégorie",
+                allowClear: true,
+                width: '100%',
+            });
+
+            $("#supportOeuvre").select2({
+                placeholder: "Sélectionner un support",
+                allowClear: true
+            });
+        });
+
+    </script>
+{% endblock %}

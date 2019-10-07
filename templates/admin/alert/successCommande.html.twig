@@ -1,0 +1,44 @@
+{% extends "layout.html.twig" %}
+{% set active = 'admin_success_commande' %}
+{% set active_link = 'admin_success_commande' %}
+{% block page_title %} Mon Compte{% endblock %}
+
+{% block content %}
+    <main class="no-bg">
+        <div class="container">
+            <div class="row">
+                {% include "admin/adminComp/_navigation.html.twig" %}
+
+                                <div class=" col-xs-12 col-md-8">
+
+                                    <div class="content-box-header">
+                                        <div class="panel-title titre-moncompte"><p>Commande numéro : {{ commande.id | str_pad}}</p></div>
+                                    </div>
+
+
+                                    <div class="oeuvre content-box-large box-with-header">
+                                        <div class="commande-success">
+                                            <div class="col-xs-12 ">
+                                                <img class="animated fadeIn" src="{{asset('img/oeuvres/validate.png')}}" class="img-responsive center-block">
+                                            </div>
+                                            
+                                            <div class="alert alert-success"> La commande a bien été validée</div>
+                                            <div class="btn-nav">
+                                                <a href="{{ url('admin_contrat',{id:commande.id}) }}" class="btn btn-lg btn-block bouton_lien">Générer Contrat</a>
+                                                
+                                                <a  id="btn-retour-dash" href="{{ url('admin_reservation') }}">Retourner sur le Dashboard</a>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+
+
+{% endblock %}

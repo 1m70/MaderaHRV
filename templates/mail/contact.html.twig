@@ -1,0 +1,18 @@
+<div class="mail">
+    <h3>Vous avez reçu un mail de la part de {{ contact.nom | upper}} {{ contact.prenom }}</h3>
+    <table>
+        <tr>
+            <td>Téléphone : </td>
+            <td>{{ contact.telephone }}</td>
+        </tr>
+        <tr>
+            <td>E-mail : </td>
+            <td>{{ contact.mail }}</td>
+        </tr>
+        <tr>
+            <td>Message : </td>
+            <td>{{ contact.message }}</td>
+        </tr>
+    </table>
+</div>
+

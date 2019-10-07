@@ -1,0 +1,373 @@
+@font-face {
+	font-family: "lato_regular";
+	src: url("../font/Lato-Regular.ttf") format("truetype");
+}
+
+@font-face {
+	font-family: "lato_light";
+	src: url("../font/Lato-Light.ttf") format("truetype");
+}
+
+@font-face {
+	font-family: "lato_black";
+	src: url("../font/Lato-Black.ttf") format("truetype");
+}
+
+#form_dispo, #oeuvre_dispo, #oeuvre_special
+{
+	margin-left: 10px;
+}
+
+section#dashboard {
+	padding-top: 5px;
+	vertical-align: middle;
+}
+
+/* Sidebar navigation */
+
+.content-box, .content-box-large {
+	margin-bottom:30px;
+	background:#e6e6e6;
+	border-radius:10px;
+	border-left:1px solid #eee;
+	border-top:1px solid #eee;
+	border-right:2px solid #eee;
+	border-bottom:2px solid #eee;
+}
+
+.content-box-large {
+	padding: 20px;
+}
+
+.box-with-header {
+	border-top: none;
+	border-top-left-radius:0px;
+	border-top-right-radius:0px;
+}
+
+.content-box-header {
+	min-height: 40px;
+	font-size: 16px;
+	background:#f5f5f5;
+	border-top-left-radius:5px;
+	border-top-right-radius:5px;
+	padding:10px;
+	border-left:1px solid #eee;
+	border-top:1px solid #eee;
+	border-right:2px solid #eee;
+}
+
+.content-box-header:after {
+	clear:both;
+}
+
+.sidebar ul.nav, .sidebar ul.nav ul {
+	list-style: none;
+	padding: 0px;
+	margin: 0px;
+}
+
+.sidebar ul.nav ul {
+	margin:0px;
+	padding:0px;
+	display:none;
+}
+
+.sidebar .nav li.open ul {
+	display:block;
+}
+
+.sidebar .nav > li {
+	margin: 0;
+	border-bottom:1px dashed #eee;
+}
+
+.sidebar .nav > li:last-child {
+	border-bottom:0px;
+}
+
+.sidebar .nav > li li {
+	margin: 0;
+}
+
+.sidebar .nav > li li a {
+	padding-left:25px;
+}
+
+.sidebar .nav > li > a {
+	font-size: 14px;
+	line-height: 20px;
+	padding: 15px 15px;
+	color: #999;
+	display: block;
+	font-weight:bold;
+	background:none;
+	text-decoration: none;
+	border-top:0px;
+	font-weight:bold;
+}
+
+.sidebar .nav > li > a > i {
+	margin-right:5px;
+}
+
+.sidebar .nav > li > ul > li > a {
+	font-size: 13px;
+	line-height: 20px;
+	padding: 8px 10px 8px 40px;
+	color: #999;
+	background:#fff;
+	display: block;
+	text-decoration: none;
+	border-top:0px;
+	font-weight:bold;
+}
+
+.sidebar .nav > li > ul > li.active > a {
+	background:#fff;
+	border-top:0px;
+	color:#555;
+}
+
+.sidebar .nav > li > ul > li > a:hover {
+	background:#fff;
+	color:#048B9A;
+	border-bottom:0px;
+}
+
+.sidebar .nav li a:hover, .sidebar .nav li.current > a {
+	background: #fff;
+	color: #048B9A;
+	border-bottom:0px;
+}
+
+.sidebar .nav li.open > a {
+	background:#fff;
+	color: #555;
+	border-bottom:1px dashed #eee;
+}
+
+body {
+	background-color: #eff0f3;
+}
+
+.panel-title {
+	font-size:14px;
+}
+
+.titre-moncompte {
+	font-size:20px;
+}
+
+/* Contenu mon compte */
+
+ul.recap li {
+	padding:10px;
+	margin:5px;
+	display: inline-block;
+	text-decoration: none;
+	background-color: #fff;
+	border:1px solid rgba(153, 153, 153, 0.4);
+	width: 90%;
+}
+
+ul.recap li a i {
+	float: left;
+	padding-top:2px;
+}
+
+ul.recap li a {
+	text-decoration: none;
+	color:#444;
+}
+ul.recap li p {
+	margin-left: 10px;
+	float: left;
+}
+
+.vert {
+	color:#84c99e;
+}
+
+.bleu {
+	color:#008d99;
+}
+
+.orange {
+	color:#ca984d;
+}
+
+.gris {
+	color:#555;
+}
+
+/* Contenu liste oeuvre dispo */
+
+.img-list {
+	max-width: 50px;
+}
+
+.middle {
+	vertical-align: middle;
+}
+
+.table {
+	margin-bottom: 10px;
+}
+
+tr {
+	vertical-align: middle;
+}
+
+td {
+	height: 50px;
+}
+
+td.big {
+	font-size: 16px;
+}
+
+td a {
+	text-decoration: none;
+	color: #555;
+}
+
+td a:hover{
+	color: #048B9A;
+}
+
+.oeuvre {
+	padding-bottom: 0;
+	padding-top: 0;
+}
+
+.table > tbody > tr > td {
+	vertical-align: middle;
+}
+
+td,th {
+	text-align: center;
+}
+
+td {
+	vertical-align: middle;
+}
+
+.bouton-modifier {
+	color: #eee;
+	background-color: #048B9A;
+	border-radius: 5px;
+	padding: 10px;
+}
+
+.bouton-modifier:hover {
+	color: rgba(0,0,0,0.95)
+}
+
+
+/* Contenu liste oeuvre indispo */
+
+ul.list-oeuvre-indispo li {
+	padding:10px;
+	margin:5px;
+	display: inline-block;
+	text-decoration: none;
+	background-color: #fff;
+	border:1px solid rgba(153, 153, 153, 0.4);
+	width: 90%;
+}
+
+ul.list-oeuvre-indispo li a {
+	text-decoration: none;
+	color:#444;
+}
+
+ul.list-oeuvre-indispo li a i {
+	float: right;
+}
+ul.list-oeuvre-indispo li a img {
+	max-width: 50px;
+	max-height: 50px;
+}
+
+/* Contenu demande */
+
+ul.list-demande li {
+	padding:10px;
+	margin:5px;
+	display: inline-block;
+	text-decoration: none;
+	background-color: #fff;
+	border:1px solid rgba(153, 153, 153, 0.4);
+	width: 90%;
+}
+
+ul.list-demande li a {
+	text-decoration: none;
+	color:#444;
+}
+
+ul.list-demande li a i {
+	float: right;
+}
+
+ul.list-demande li a img {
+	max-width: 50px;
+	max-height: 50px;
+}
+
+
+/* Contenu demande client */
+
+ul.list-demande-client li {
+	padding:10px;
+	margin:5px;
+	display: inline-block;
+	text-decoration: none;
+	background-color: #fff;
+	border:1px solid rgba(153, 153, 153, 0.4);
+	width: 90%;
+}
+
+ul.list-demande-client li a {
+	text-decoration: none;
+	color:#444;
+}
+ul.list-demande-client li a i {
+	float: right;
+}
+ul.list-demande-client li a img {
+	max-width: 50px;
+	max-height: 50px;
+}
+
+ul.list-demande-client li a span {
+	float:right;
+}
+
+/* Contenu mon compte client */
+
+ul.recap-client li {
+	padding:10px;
+	margin:5px;
+	display: inline-block;
+	text-decoration: none;
+	background-color: #fff;
+	border:1px solid rgba(153, 153, 153, 0.4);
+	width: 90%;
+}
+
+ul.recap-client li a i {
+	float: left;
+	padding-top:2px;
+}
+
+ul.recap-client li a {
+	text-decoration: none;
+	color:#444;
+}
+
+ul.recap-client li p {
+	margin-left: 10px;
+	float: left;
+}

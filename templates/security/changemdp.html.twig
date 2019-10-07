@@ -1,0 +1,64 @@
+{% extends "layout.html.twig" %}
+
+{% set active = 'modifierCompteUser' %}
+{% set active_link = 'modifierCompteUser' %}
+{% block page_title %} Mon Compte {% endblock %}
+
+{% block content %}
+    <main class="no-bg">
+        <div class="row">
+
+            {%  if (app.user is not null and (app.user.roles[0] == 'ROLE_LOUEUR'))  %}
+                {% include "admin/adminComp/_navigation.html.twig" %}
+            {% else %}
+                {% include "user/userComp/_navigation.html.twig" %}
+            {% endif %}
+
+                            <!-- Contenu du dashboard -->
+
+                                <div class="col-xs-offset-1 col-xs-10 col-md-6">
+                                    <div class="content-box-header">
+                                        <h2 class="text-center panel-title titre-moncompte">Changer de mot de passe</h2>
+                                    </div>
+                                    <div class="content-box-large box-with-header">
+                                        <form action="{{ path('security_reset_password') }}" method="post">
+
+                                            <div class="form-group">
+                                                {% if passwordErrors.oldPasswordError is defined %}<ul><li>{{ passwordErrors.oldPasswordError|raw }}</li></ul>{% endif %}
+                                                <label for="old_password">Ancien mot de passe</label>
+                                                <input type="password" name="old_password" class="form-control" placeholder="Votre ancien mot de passe">
+                                            </div>
+
+                                            <div class="form-group">
+                                                {% if passwordErrors.passwordError is defined %}<ul><li>{{ passwordErrors.passwordError|raw }}</li></ul>{% endif %}
+                                                <label for="password">Nouveau mot de passe</label>
+                                                <input type="password" name="password" class="form-control" placeholder="Votre nouveau mot de passe">
+                                            </div>
+
+                                            <div class="form-group">
+                                                {% if passwordErrors.passwordConfirmError is defined %}<ul><li>{{ passwordErrors.passwordConfirmError|raw }}</li></ul>{% endif %}
+                                                <label for="password_confirm">Vérification du nouveu mot de passe</label>
+                                                <input type="password" name="password-confirm" class="form-control" placeholder="Vérification du mot de passe">
+                                            </div>
+
+
+                                            <div>
+                                                <input id="signIn_Reset" class="btn btn-lg btn-block bouton_lien" type="reset" value="Reset">
+                                                <input  id="signIn_Validate" class="btn btn-lg btn-block bouton_lien" type="submit" value="Changer">
+                                            </div>
+
+                                        </form>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+            </div> <!-- /.row -->
+        </div>
+    </main>
+
+{% endblock %}

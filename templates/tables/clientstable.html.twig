@@ -1,0 +1,34 @@
+<table class="table table-striped clients_table JQuery_table">
+
+    <thead>
+        <tr>
+            <th scope="col">Nom</th>
+            <th scope="col">Prenom</th>
+            <th scope="col">Email</th>
+            <th scope="col">Statut</th>
+            <th scope="col">Societe</th>
+            <th scope="col">Actions</th>
+        </tr>
+    </thead>
+
+    <tbody>
+    {% for client in clients %}
+        <tr class="animated fadeIn">
+            <td>{{ client.nom }}</td>
+            <td>{{ client.prenom }}</td>
+            <td>{{ client.mail }}</td>
+            <td>
+                {%  if client.categorie is not null %}
+                    {{ client.categorie.libelleCategorieClient }}
+                {%  endif %}</td>
+            <td>
+                {%  if client.societe is not null %}
+                    {{ client.societe }}
+                {% endif %}
+            </td>
+            <td ><a class="bouton-modifier" href="{{ path('admin_client', {id:client.id}) }}"><i class="glyphicon glyphicon-user"></i><span class="hidden-xs hidden-sm ">Visualiser</span></a></td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+

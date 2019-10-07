@@ -1,0 +1,18 @@
+<div class="mail">
+    <h3>Bonjour,</h3>
+    <p>votre commande n° {{ commande.id | str_pad }} pour l'œuvre {{ commande.oeuvre.nomOeuvre }}  a été acceptée, nous reviendrons vers vous dans les plus brefs delais pour la suite de la procédure.</p>
+
+    <p>Cordialement,</p>
+</div>
+
+    {# <p>
+        {%  if commande.type == 1 %}
+            Vente
+        {% else %}
+            Location
+                Début réservation : {{ commande.datedebutres | date }}
+                Début réservation : {{ commande.datefinres | date}}
+        {% endif %}
+    </p> #}
+
+</div>

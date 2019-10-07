@@ -1,0 +1,7 @@
+<div class="mail">
+    <h2>Inscription confirmée</h2>
+    <h3>Bienvenue parmi nous {{ client.prenom }} {{ client.nom | upper }} </h3>
+    <p> Pour confirmer votre compte veuillez cliquer sur ce lien :<br>
+        <a href="{{ url('security_confirm', {id : client.id, token : client.verificationToken}) }}">{{ url('security_confirm', {id : client.id, token : client.verificationToken}) }} </a>
+    </p>
+</div>

@@ -1,0 +1,36 @@
+<section id="dashboard">
+
+    <div class="container">
+
+        <div class="page-content">
+            <div class="row">
+                <div class="col-xs-12 col-md-4 sidebar">
+
+                    <div class=" content-box">
+
+                        <ul class="nav animated fadeIn">
+                            <!-- Main menu -->
+                            <li><a id="monCompteAdmin" href="{{ url('security_account') }}"><i class="glyphicon glyphicon-home"></i> Tableau de Bord</a></li>
+                            <li><a id="demandeAttenteAdminMenu" href="{{ url('user_reservation') }}"><i class="glyphicon glyphicon-record vert"></i> Demande(s) en attente(s)</a></li>
+                            <li><a href="{{ path('user_validate', {username:app.user.nom}) }}">
+                                    <i class="glyphicon glyphicon-menu-hamburger vert">
+                                    </i> Lister les demandes validés
+                                </a>
+                            </li>
+                            <li><a href="{{ path('user_refused', {username:app.user.nom}) }}">
+                                    <i class="glyphicon glyphicon-menu-hamburger orange">
+                                    </i> Lister les demandes refusés
+                                </a>
+                            </li>
+                            <li><a href="{{ path('user_location', {username:app.user.nom}) }}">
+                                    <i class="glyphicon glyphicon-menu-hamburger bleu">
+                                    </i> Mes oeuvres actuellement en location
+                                </a>
+                            </li>
+                            <li><a href="{{ path('modify_account') }}"><i class="glyphicon glyphicon-edit"></i> Modifier mon compte </a></li>
+                            <li><a href="{{ path('security_reset_password') }}"><i class="glyphicon glyphicon-user bleu"></i> Changer de mot de passe </a></li>
+                        </ul>
+
+                    </div>
+
+                </div>

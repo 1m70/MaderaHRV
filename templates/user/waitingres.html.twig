@@ -1,0 +1,37 @@
+{% extends "layout.html.twig" %}
+{% set active = 'admin_attente' %}
+{% set active_link = 'admin_attente' %}
+{% set admin = false %}
+{% set processed = false %}
+{% set nCommande = false %}
+{% block page_title %} Mon Compte{% endblock %}
+
+{% block content %}
+    <main class="no-bg">
+        <div class="container">
+            <div class="row animated fadeIn">
+                {% include "user/userComp/_navigation.html.twig" %}
+
+                <div class=" col-xs-12 col-md-8">
+
+                    <div class="content-box-header">
+                        <div class="panel-title titre-moncompte"><p>Vos demandes en attente :  </p></div>
+                    </div>
+
+
+                    <div class="oeuvre content-box-large box-with-header">
+
+                           {% include 'tables/orderstable.html.twig' %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+        </section>
+        </div>
+        </div>
+    </main>
+
+
+{% endblock %}

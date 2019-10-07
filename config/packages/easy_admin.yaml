@@ -1,0 +1,99 @@
+easy_admin:
+  entities:
+    Client:
+      class: App\Entity\Client
+      label: 'Clients'
+      list:
+        actions:
+          - {name: 'edit', icon: 'pencil', label: false, css_class: 'btn btn-secondary'}
+          - {name: 'delete', icon: 'trash', label: false, css_class: 'btn btn-danger'}
+    Adresse:
+      class: App\Entity\Adresse
+      label: 'Adresses'
+      list:
+        actions:
+          - {name: 'edit', icon: 'pencil', label: false, css_class: 'btn btn-secondary'}
+          - {name: 'delete', icon: 'trash', label: false, css_class: 'btn btn-danger'}
+    CategorieC:
+      class: App\Entity\CategorieClient
+      label: 'Catégories'
+      list:
+        actions:
+          - {name: 'edit', icon: 'pencil', label: false, css_class: 'btn btn-secondary'}
+          - {name: 'delete', icon: 'trash', label: false, css_class: 'btn btn-danger'}
+    Artiste:
+      class: App\Entity\Artiste
+      list:
+        actions:
+          - {name: 'edit', icon: 'pencil', label: false, css_class: 'btn btn-secondary'}
+          - {name: 'delete', icon: 'trash', label: false, css_class: 'btn btn-danger'}
+    Oeuvre:
+      class: App\Entity\Oeuvre
+      label: 'Oeuvres'
+      image_base_path: 'http://127.0.0.1:8000/media/cache/thumbnail/img/oeuvres/'
+      list:
+        fields:
+          - { property: 'id'}
+          - { property: 'filename', type: 'image'}
+          - { property: 'nomOeuvre'}
+          - { property: 'anneeCreationOeuvre'}
+          - { property: 'prixLocationOeuvre'}
+          - { property: 'prixVenteOeuvre'}
+          - { property: 'special'}
+          - { property: 'commandes'}
+        actions:
+          - {name: 'edit', icon: 'pencil', label: false, css_class: 'btn btn-secondary'}
+          - {name: 'delete', icon: 'trash', label: false, css_class: 'btn btn-danger'}
+    CategorieO:
+      class: App\Entity\CategorieOeuvre
+      label: 'Catégories'
+      list:
+        actions:
+          - {name: 'edit', icon: 'pencil', label: false, css_class: 'btn btn-secondary'}
+          - {name: 'delete', icon: 'trash', label: false, css_class: 'btn btn-danger'}
+    SupportO:
+      class: App\Entity\SupportOeuvre
+      label: 'Supports'
+      list:
+        actions:
+          - {name: 'edit', icon: 'pencil', label: false, css_class: 'btn btn-secondary'}
+          - {name: 'delete', icon: 'trash', label: false, css_class: 'btn btn-danger'}
+    TechniqueO:
+      class: App\Entity\TechniqueOeuvre
+      label: 'Techniques'
+      list:
+        actions:
+          - {name: 'edit', icon: 'pencil', label: false, css_class: 'btn btn-secondary'}
+          - {name: 'delete', icon: 'trash', label: false, css_class: 'btn btn-danger'}
+    Commande:
+      class: App\Entity\Commande
+      label: 'Commandes'
+      list:
+        fields:
+          - { property: 'id'}
+          - { property: 'type'}
+          - { property: 'oeuvre'}
+          - { property: 'client'}
+          - { property: 'dateCommande'}
+          - { property: 'datedebutres'}
+          - { property: 'datefinres'}
+          - { property: 'etat'}
+        actions:
+          - {name: 'edit', icon: 'pencil', label: false, css_class: 'btn btn-secondary'}
+          - {name: 'delete', icon: 'trash', label: false, css_class: 'btn btn-danger'}
+  site_name: 'Nlocart Backend'
+  design:
+    brand_color: '#3caab5'
+    assets:
+      favicon:
+        path: '/img/favicon/favicon.ico'
+        mime_type: 'image/xxx'
+    menu:
+      - label:  'Oeuvres'
+        icon: 'book'
+        children: ['Oeuvre', 'CategorieO', 'SupportO', 'TechniqueO']
+      - label: 'Clients'
+        icon: 'users'
+        children: ['Client', 'Adresse', 'CategorieC']
+      - {entity: 'Artiste', icon: 'user'}
+      - {entity: 'Commande', icon: 'cart-arrow-down'}

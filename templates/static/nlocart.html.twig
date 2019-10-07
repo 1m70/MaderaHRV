@@ -1,0 +1,118 @@
+{% extends "layout.html.twig" %}
+
+{% set active = 'NLOCArt' %}
+{% set active_link = 'nlocart' %}
+{% block page_title %} NLOCArt {% endblock %}
+
+{% block content %}
+   
+    <main class="no-bg" id="nlocart-page">
+        <div class="container animated fadeIn">
+            <div class="col-xs-12">
+                <img class="center-block img-responsive" id="logo_nlc"src="{{asset('img/')}}logo_NLocArt-black.png" alt="">
+        
+                <div class="row">
+                    <div class="col-xs-12">
+                        <h2>Qu'est-ce qu'NLOCArt ?</h2>
+                    </div>
+                    <div class="col-xs-offset-1 col-xs-10">
+                        <p>
+                            L’aventure NLOCrt a tout d’abord commencé par la rencontre du graffeur rouennais Ecloz et de Florent, un des co-fondateurs, sur un projet vidéo. 
+                            Après plus 2 années de travail régulier entre les deux hommes, Ecloz évoqua le fait qu’il voulait développer le marché de la location d’œuvre d’art dans la région Normandie, pour lui mais également pour d’autres artistes.
+                        </p>
+                        <p>
+                            Lors de leurs rencontre à la NFactory School en 2018, Florent, Benjamin, Hocine, Nathan et Alexandre ont décidé de mettre en place une plateforme de mise en relation entre Ecloz et ses potentiels clients, qu’ils soient particuliers ou professionnels, que ce soit avant tout pour de la location mais également de l’achat.
+                        </p>              
+                    </div>
+                </div>
+                    
+                <div class="equipe">
+                    <h2>L'équipe NLOCArt :</h2>
+                    <div class="row list-equipe">
+                        <div class="col-xs-12">
+                            <div class="membre">
+                                <div class="col-xs-6 col-sm-offset-1 col-sm-2">
+                                    <img class="img-responsive" src="{{ asset('img/team/flo.png') }}">
+                                    <p><strong>Florent</strong></p>
+                                </div>
+                            </div>
+                            <div class="membre">
+                                <div class="col-xs-6 col-sm-2">
+                                    <img class="img-responsive" src="{{ asset('img/team/lamachine.png') }}">
+                                    <p><strong>Hocine</strong></p>
+                                </div>
+                            </div>
+                            <div class="membre">
+                                <div class="col-xs-6 col-sm-2">
+                                    <img class="img-responsive" src="{{ asset('img/team/nathan.png') }}">
+                                    <p><strong>Nathan</strong></p>
+                                </div>
+                            </div>
+                            <div class="membre">
+                                <div class="col-xs-6 col-sm-2">
+                                    <img class="img-responsive" src="{{ asset('img/team/alex.png') }}">
+                                    <p><strong>Alexandre</strong></p>
+                                </div>
+                            </div>    
+                            <div class="membre">
+                                <div class="col-xs-offset-3 col-xs-6 col-sm-offset-0 col-sm-2">
+                                    <img class="img-responsive" src="{{ asset('img/team/benj.png') }}">
+                                    <p><strong>Benjamin</strong></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+               
+
+                <div class="row">
+                    <div class="col-xs-12 pourquoi">
+                        <h2>Pourquoi NLOCArt ?</h2>
+                    </div>
+                    <div class="col-xs-offset-1 col-xs-10 pourquoi">
+                        <p>
+                            La plateforme s’adresse aux artistes et galeries d'art souhaitant promouvoir leurs activités en dehors du circuit traditionnel, dans un contexte B2B ou B2C.
+                        </p>
+                        <p>
+                            NLOCArt permet de démocratiser l’art, de se l’approprier, de le varier tout en portant de la visibilité aux artistes parfois méconnue ou voulant juste accroître et diversifier leur activité.
+                        </p>
+                        <p>
+                            Nous avons pris le partie  de la mise en contact plutôt que le coté e-commerce pour garder le caractère humain sur ce marché. 
+                            L’art est souvent le fruit d'une rencontre, d'une émotion à partager, un échange, une attitude. Ce facteur humain est indispensable pour que cela fonctionne.
+                        </p>
+
+                    </div>
+                </div>
+
+                <div class="row">
+                    <section id="contact-nlocart">
+                        <div class="container" id="contact_form">
+                            <div class="form-signin">
+                                <h1 class="form-signin-heading text-muted">Contactez Nous</h1>
+                                {% form_theme form 'bootstrap_4_layout.html.twig' %}
+                                {{ form_start(form) }}
+                                {{ form_widget(form) }}
+                                {{ form_end(form) }}
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>          
+    </main>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+{% endblock %}
+
+
+{% block final_javascripts %}
+    <script>
+        $(document).ready(function () {
+            {% if not form.vars.valid %}
+            window.location.hash = 'contact_form';
+            {% endif %}
+        })
+    </script>    
+{% endblock %}

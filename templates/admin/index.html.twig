@@ -1,0 +1,45 @@
+{% extends "layout.html.twig" %}
+{% set active = 'admin_index' %}
+{% set active_link = 'administration' %}
+{% block page_title %} Mon Compte{% endblock %}
+
+{% block content %}
+
+    <main class="no-bg">
+        <div class="container">
+            <div class="row">
+                {# Navigation de l'admin#}
+                {% include "admin/adminComp/_navigation.html.twig" %}
+
+                            <!-- Contenu du dashboard -->
+                                <div class="col-xs-12 col-md-8">
+                        
+                                    <div class="content-box-header">
+                                        <div class="panel-title titre-moncompte"><p>Bonjour,</p></div>
+                                    </div>
+
+
+                                    <div class="content-box-large box-with-header">
+                                        <p>&#192 ce jour, vous avez :</p>
+                                        <ul class="recap animated fadeIn">
+
+                                            <li><a href="{{ path('admin_reservation') }}"><i class="glyphicon glyphicon-record vert"></i><p>{{ nbrWaitingCommandes }} demandes en attente</p></a></li>
+                                            <li><a href="{{ path('admin_archives') }}"><i class="glyphicon glyphicon-record orange"></i><p>{{ nbrProcessedCommandes }} demandes traitées</p></a></li>
+                                            <li><a href="{{ path('admin_archives') }}"><i class="glyphicon glyphicon-record bleu"></i><p>{{ nbrLocOeuvres }} &oelig;uvres en location</p></a></li>
+                                            <li><a href="{{ path('admin_dispo') }}"><i class="glyphicon glyphicon-menu-hamburger vert"></i><p>{{nbrDispoOeuvres}} &oelig;uvres disponibles</p></a></li>
+                                            <li><a href="{{ path('admin_indispo') }}"><i class="glyphicon glyphicon-menu-hamburger orange"></i><p>{{nbrNonDispoOeuvres}} &oelig;uvres indisponibles</p></a></li>
+                                            <li><a href="{{ path('admin_vendus') }}"><i class="glyphicon glyphicon-menu-hamburger bleu"></i><p>{{nbrOeuvresVendus}} &oelig;uvres vendus</p></a></li>
+                                            <li><a href="{{ path('admin_clients') }}"><i class="glyphicon glyphicon-user bleu"></i><p>{{nbrClients}} clients enregistr&#233;s</p></a></li>
+                                            
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div> <!-- /.row -->
+        </div>
+    </main>
+
+{% endblock %}

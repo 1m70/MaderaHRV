@@ -1,0 +1,193 @@
+{% extends "layout.html.twig" %}
+{% set active = 'admin_client' %}
+{% set active_link = 'admin_client' %}
+{% set processed = null %}
+{% set nCommande = null %}
+{% set admin = true %}
+{% block page_title %} {{ client.nom ~ ' ' ~ client.prenom }}{% endblock %}
+
+{% block content %}
+    <main class="no-bg">
+        <div class="container">
+            <div class="row animated fadeIn">
+                {%  if app.user.roles[0] == 'ROLE_LOUEUR'  %}
+                    {% include "admin/adminComp/_navigation.html.twig" %}
+                {% else %}
+                    {% include "user/userComp/_navigation.html.twig" %}
+                {% endif %}
+
+                        <div class=" col-xs-12 col-md-8" style="padding-bottom: 20px;">
+
+                            <div class="content-box-header">
+                                <div class="panel-title titre-moncompte titre_client">
+                                    <p>
+                                        {{ client.nom ~' '~ client.prenom }} <a href="{{ path('modify_account') }}" style="float: right;">Modifier mon compte</a>
+                                    </p>
+                                </div>
+                            </div>
+
+
+                            <div class="oeuvre content-box-large box-with-header">
+                                <div class="row">
+                                    <div class="panel-title titre-moncompte commande_panel">
+                                        <div class="col-xs-12 texte-client" style="padding-top: 15px;">
+                                            <div  class="table-commande row" style="padding-left: 15px">
+                                               <div class="row">
+                                                   <div class="col-xs-5 bold">Nom :</div>
+                                                   <div class="col-xs-7">{{ client.nom}} {{ client.prenom }}</div>
+                                               </div>
+                                                <div class="row">
+                                                    <div class="col-xs-5 bold">E-mail :</div>
+                                                    <div class="col-xs-7">{{client.mail}}</div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-xs-5 bold">Portable :</div>
+                                                    <div class="col-xs-7">{{client.mobile}}</div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-xs-5 bold">telephone :</div>
+                                                    <div class="col-xs-7">{{client.telephone}}</div>
+                                                </div>
+                                                <hr>
+                                                <div class="row">
+                                                   <div class="col-xs-5 bold">Raison sociale :</div>
+                                                   <div class="col-xs-7">{%  if client.categorie %}{{client.categorie.libelleCategorieClient}}{% endif %}</div>
+                                               </div>
+                                                <div class="row">
+                                                    <div class="col-xs-5 bold">Societe :</div>
+                                                    <div class="col-xs-7">{{client.societe}}</div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-xs-5 bold">Siret :</div>
+                                                    <div class="col-xs-7">{{ client.siret }}</div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-xs-5 bold">Adresses :</div>
+                                                    <div class="col-xs-7">
+                                                        {% for adresse in client.adresses %}
+                                                            <p>
+                                                                type : {% if adresse.type is null or adresse.type == '' %} non renseigné {% else %} {{ adresse.type }} {% endif %}
+                                                            <p>{{ adresse.adresse }} </p>
+                                                            <p>
+                                                                {{ adresse.cp }} {{ adresse.ville }}, {{ adresse.pays }}
+                                                            </p>
+                                                            <hr>
+                                                        {% endfor %}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            {% if app.user.roles[0] == 'ROLE_MEMBRE' %}
+                                <div class="content-box-header mb10">
+                                    <div class="panel-title titre-moncompte"><p>Mes commandes
+                                            <span style="float: right;" class="btn_commande">+</span>
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div class="content-box-large box-with-header to_toggle">
+                                    <p>&#192 ce jour, vous avez :</p>
+                                    <ul class="recap-client">
+                                        <li><a href="{{ url('user_reservation') }}"><i class="glyphicon glyphicon-record bleu"></i><p>{{ nbrWRes }} demandes en attente</p></a></li>
+                                        <li><a href="{{ url('user_validate', {username:app.user.nom}) }}"><i class="glyphicon glyphicon-record vert"></i><p>{{ nbrVres }} demandes validées</p></a></li>
+                                        <li><a href="{{ url('user_refused', {username:app.user.nom} ) }}"><i class="glyphicon glyphicon-record orange"></i><p>{{ nbrRRes }} demandes refusée</p></a></li>
+                                        <li><a href="{{ url('user_location', {username:app.user.nom} ) }}"><i class="glyphicon glyphicon-record bleu"></i><p>{{ nbrLRes }} oeuvres actuellement en location</p></a></li>
+                                        <li><a href="{{ url('modify_account') }}"><i class="glyphicon glyphicon-edit"></i><p>Modifier les informations de mon compte</p></a></li>
+
+                                    </ul>
+                                </div>
+                            {% endif %}
+
+                            <div class="content-box-header mb10">
+                                <div class="panel-title titre-moncompte"><p>Commandes en attentes
+                                        <span style="float: right;" class="btn_commande">+</span></p></div>
+                            </div>
+                            <div class="oeuvre content-box-large box-with-header to_toggle" >
+                                <div class="row">
+                                    <div class="panel-title titre-moncompte commande_panel linked_orders">
+                                        {% set commandes = clientWaitingRes %}
+                                        {% include "tables/orderstable.html.twig" %}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="content-box-header mb10">
+                                <div class="panel-title titre-moncompte"><p>Commandes traitées
+                                        <span style="float: right;" class="btn_commande">+</span>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="oeuvre content-box-large box-with-header to_toggle">
+                                <div class="row">
+                                    <div class="panel-title titre-moncompte commande_panel linked_orders">
+                                        {% set commandes = clientProcessedRes %}
+                                        {% set processed = true %}
+                                        {% include "tables/orderstable.html.twig" %}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="content-box-header mb10">
+                                <div class="panel-title titre-moncompte"><p>Oeuvres actuellement en location
+                                        <span style="float: right;" class="btn_commande">+</span>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="oeuvre content-box-large box-with-header to_toggle">
+                                <div class="row">
+                                    <div class="panel-title titre-moncompte commande_panel linked_orders">
+                                        {% set commandes = clientLocOeuvres %}
+                                        {% include "tables/loctable.html.twig" %}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="content-box-header mb10">
+                                <div class="panel-title titre-moncompte"><p>Oeuvres achetées
+                                        <span style="float: right;" class="btn_commande">+</span>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="oeuvre content-box-large box-with-header to_toggle last_table">
+                                <div class="row">
+                                    <div class="panel-title titre-moncompte commande_panel linked_orders">
+                                        {% set commandes = clientSelledOeuvres %}
+                                        {% set processed = false %}
+                                        {% include "tables/orderstable.html.twig" %}
+                                    </div>
+                                </div>
+                            </div>
+
+
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        $(document).ready(function () {
+
+            $('.btn_commande').click(function () {
+                $to_toggle = $(this).parent().parent().parent().next();
+                if ( $to_toggle.is(':visible')){
+                    $to_toggle.slideUp('slow');
+                    $(this).html('+');
+                }else{
+                    $to_toggle.slideDown('slow');
+                    $(this).html('-');
+                }
+            });
+        });
+    </script>
+{% endblock %}

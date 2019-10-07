@@ -1,0 +1,154 @@
+{% extends 'layout.html.twig' %}
+{% set active = oeuvre.nomOeuvre %}
+{% set active_link = oeuvre.nomOeuvre %}
+
+{% block page_title %}
+    {{ oeuvre.nomOeuvre }}
+{% endblock %}
+
+{% block stylesheets %}
+
+    {{ parent() }}
+{% endblock %}
+{% block content %}
+    {# {{ dump(oeuvre) }} #}
+
+    <main class="no-bg">
+		<section id="oeuvre">
+			<div class="container">
+				<div id="presentation_oeuvre" class="animated fadeIn">
+					<div class="row">
+						<div class="col-xs-12 col-sm-offset-1 col-sm-10 col-md-offset-1 col-md-5" id="photo_oeuvre">
+							<img class="img-responsive center-block"
+                                 src="{{ vich_uploader_asset(oeuvre, 'imageFile') | imagine_filter('thumb')}}"
+                                 alt="{{ oeuvre.nomOeuvre }}"
+                                 style="width: 100%;"
+                            >
+						</div>
+						<div class="col-xs-12 col-sm-offset-1 col-sm-10 col-md-offset-0 col-md-5" id="texte_presentation">
+							<div class="oeuvre-titre">
+								<div class="row">
+									<div class="col-xs-8">
+										<h1>{{oeuvre.nomOeuvre}} </h1>
+									</div>
+									<div class="col-xs-4" style="text-align: right;">
+                                        {%  if (app.user is not null and (app.user.roles[0] == 'ROLE_LOUEUR'))  %}
+											<span>
+												<a title="Modifier" class="bouton-modifier" href="{{ path('admin_edit', {id: oeuvre.id}) }}"><i class="glyphicon glyphicon-edit"></i></a>
+												<a title="Supprimer"
+												   class="bouton-modifier oeuvre_to_delete"
+												   data-toggle="modal"
+												   data-target="#deleteModal"
+												   style="background: #761c19;"
+													data_id = {{ oeuvre.id }}	>
+													<span class="glyphicon glyphicon-trash"></span></a>
+											</span>
+                                        {% endif %}
+									</div>
+								</div>
+
+							</div>
+							<div class="presentation_oeuvre">
+                                {% if oeuvre.categorie is not null %}
+									<p><span class="titre_description_oeuvre">Catégorie :</span>  {{ oeuvre.categorie.libelleCategorieOeuvre }} </p>
+                                {% endif %}
+								{%  if oeuvre.supportOeuvre %}
+									<p><span class="titre_description_oeuvre">Support :</span>{{oeuvre.SupportOeuvre.libelleSupportOeuvre}}</p>
+								{% endif %}
+								{% if oeuvre.techniqueOeuvres is not empty %}
+									<p><span class="titre_description_oeuvre">Technique(s) Utilisée(s) :</span>
+										{%for technique in oeuvre.techniqueOeuvres %}{{ technique.libelleTechniqueOeuvre }}&nbsp;&nbsp;&nbsp;{% endfor %}
+									</p>
+                                {% endif %}
+								{% if oeuvre.anneeCreationOeuvre is not null %}
+									<p><span class="titre_description_oeuvre">Année de Production :</span>{{ oeuvre.anneeCreationOeuvre}}</p>
+                                {% endif %}
+								{% if oeuvre.hauteurOeuvre is not null and oeuvre.largeurOeuvre is not null and oeuvre.profondeurOeuvre is not null %}
+									<p><span class="titre_description_oeuvre">Dimensions (H x l x p) :</span> {{ oeuvre.hauteurOeuvre}} x {{oeuvre.largeurOeuvre}} x {{oeuvre.profondeurOeuvre}} cm</p>
+                                {%  endif %}
+								{% if oeuvre.poidsOeuvre is not null %}
+									<p><span class="titre_description_oeuvre">Poids :</span> {{oeuvre.poidsOeuvre}} kg </p>
+								{% endif  %}
+								<p class="line"><span class="titre_description_oeuvre">Disponibilité</span> {% if(oeuvre.dispo ==true) %} <p class="disponible">Disponible</p>{% else %} <p class="indisponible danger">Indisponible</p>{% endif %}
+								<p><span class="titre_description_oeuvre">Prix de Vente en Atelier :</span> {{ oeuvre.prixVenteOeuvre}} €</p>
+								<p><span class="titre_description_oeuvre">Prix en location (Bail de 180 jours) :</span>  {{ oeuvre.prixLocationOeuvre}}€</p>
+
+								{% if oeuvre.description is not null %}
+									<p><span class="titre_description_oeuvre">Description :</span>  {{ oeuvre.description | striptags |raw }} </p>
+                                {% endif %}
+
+							</div>
+
+							<form action="{{ path('order_add') }}" method="post">
+								<div class="renseignements_location_oeuvre">
+									<div class="groupe_bouton">
+										<input type="hidden" name ="oeuvre_id" value="{{ oeuvre.id }}">
+										<input type="hidden" name="_token" value="{{ csrf_token('add' ~ oeuvre.id) }}" >
+										<div class="bouton">
+											<input type="submit" name="loc" class="btn btn-primary bouton_louer" value="Je souhaite LOUER cette œuvre">
+										</div>
+										<div class="bouton">
+											<input type="submit" name="vente" class="btn btn-purple bouton_acheter" value="Je souhaite ACHETER cette œuvre">
+										</div>
+									</div>
+								</div>
+							</form>
+
+						</div>
+
+					</div> <!-- /.row -->
+				</div>
+
+				<div class="suggestions">
+					<div class="row">
+						<div class="col-xs-12">
+							<div class="row">
+								<div class="col-xs-12">
+									<h2>A découvrir</h2>
+								</div>
+								<div class="col-xs-5 col-sm-6 col-md-4" id="trait_bleu"></div>
+							</div>
+
+							<div class="row" id="oeuvres_a_la_une">
+
+								{% for oeuvre in randomOeuvres %}
+									<div class="col-xs-4 col-sm-4 col-md-2 apercu_catalogue a_decouvrir">
+										<a href="{{oeuvre | oeuvrelink}}">
+											<img class="img-responsive"
+                                                 src="{{ vich_uploader_asset(oeuvre, 'imageFile') | imagine_filter('thumb')}}"
+                                                 alt="{{ oeuvre.nomOeuvre }}"
+                                                 style="width: 100%;">
+										</a>
+									</div>
+								{% endfor %}
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row" id="lien_contact_artiste">
+
+					<a href="{{ path('index')}}#contact" class="bouton_lien">Contacter l'artiste</a>
+
+				</div>
+                {% include 'admin/modal/deleteoeuvre.html.twig' %}
+
+			</div> <!-- /.container -->
+
+		</section> <!-- /#oeuvre -->
+
+	</main>
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+	<script>
+		$(document).ready(function () {
+			$('.oeuvre_to_delete').click(function () {
+				idOeuvreToDelete = $(this).attr('data_id');
+				$deleteInput = $('#deleteModal').find("input[name='oeuvre_id']");
+				$deleteInput.val(idOeuvreToDelete);
+            })
+        });
+	</script>
+{% endblock %}

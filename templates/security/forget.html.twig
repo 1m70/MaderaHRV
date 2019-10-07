@@ -1,0 +1,41 @@
+{% extends "layout.html.twig" %}
+
+{% set active_link = 'forget' %}
+
+{% set active = 'forget' %}
+{% block page_title %} Mot-de-passe Oublié {% endblock %}
+
+{% block content %}
+    <main class="no-bg">
+        <section id="inscription" class="animated fadeInLeftBig" style="margin-top: 100px;">
+
+            <div class="container" id="inscription_form">
+
+                <div class="col-xs-6 col-xs-push-3">
+                    <div class="content-box-header">
+                        <h1 class="form-signin-heading text-muted">Mot de passe oublié</h1>
+                    </div>
+
+                    <div class="content-box-large box-with-header">
+                        <form action="{{ path('security_forget') }}" method="post">
+                            <div class="form-group">
+                                {% if mailError is not null %}
+                                     <div class="alert alert-danger">
+                                         {{ mailError }}
+                                     </div>
+                                {% endif %}
+                                <label for="mail">Votre E-mail</label>
+                                <input type="text" name="mail" id="mail" class="form-control" placeholder="Saisisez votre adresse mail">
+
+                            </div>
+                            <div class="form-group">
+                                <input class="btn btn-lg btn-block bouton_lien" type="submit" value="Envoyer" name="forget">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+    </main>
+{% endblock %}

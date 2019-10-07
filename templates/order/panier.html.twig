@@ -1,0 +1,102 @@
+{% extends 'layout.html.twig' %}
+{% set active_link = 'panier' %}
+{% block page_title %}
+    Panier
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+{% endblock %}
+
+    {% block content %}
+        <main class="no-bg">
+            <section id="catalogue">
+
+                <div class="container">
+                    <div class="row">
+                        <div class="titre_catalogue">
+                            <div class="col-xs-12">
+                                <h2>Mes Commandes</h2>
+                            </div>
+
+                            <div class="col-xs-5 col-sm-6 col-md-4" id="trait_bleu"></div>
+
+                        </div>
+                    </div> <!-- /.row -->
+
+                    <div class="row">
+
+						<div class="oeuvre content-box-large box-with-header">
+                            <div class="row">
+								{% if panierLocation is null and commandes is null %}
+									<h2> Panier vide </h2>
+								{% else %}
+                                	<table class="table table-striped">
+
+										<thead>
+											<tr>
+											<th scope="col"></th>
+											<th scope="col">Nom de l'œuvre</th>
+											<th scope="col">Nature de la demande</th>
+											<th scope="col">Prix de Vente Atelier</th>
+											<th scope="col">Tarif Location</th>
+											</tr>
+										</thead>
+										
+										<tbody>
+
+											{% for oeuvre in commandes %}
+												<tr class="animated fadeIn">
+													<td><img class="img-list img-responsive" src="{{ vich_uploader_asset(oeuvre, 'imageFile') | imagine_filter('thumbnail')}}" alt="{{ oeuvre.nomOeuvre }}"></td>
+													<td>{{ oeuvre.nomOeuvre }}</td>
+													<td>Demande d'achat</td>
+													<td>{{ oeuvre.prixVenteOeuvre }} €</td>
+													<td></td>
+													<td>
+														<form action="{{ path('order_delete',{id: oeuvre.id}) }}" method="POST" style="margin: auto; text-align: center;">
+															<input type="hidden" name="_token" value="{{ csrf_token('sdel'~oeuvre.id) }}">
+															<input type="submit" value="Supprimer">
+														</form>
+													</td>
+												</tr>
+											{% endfor %}
+											{% for oeuvre in panierLocation %}
+												<tr class="animated fadeIn">
+													<td><img class="img-list img-responsive" src="{{ vich_uploader_asset(oeuvre, 'imageFile') | imagine_filter('thumbnail')}}" alt="{{ oeuvre.nomOeuvre }}"></td>
+													<td>{{ oeuvre.nomOeuvre }}</td>
+													<td>Demande de Location</td>
+													<td></td>
+													<td>{{ oeuvre.prixLocationOeuvre }} €</td>
+													<td>
+														<form action="{{ path('order_delete_location',{id: oeuvre.id}) }}" method="POST" style="margin: auto; text-align: center;">
+															<input type="hidden" name="_token" value="{{ csrf_token('sdel'~oeuvre.id) }}">
+															<input type="submit" value="Supprimer">
+														</form>
+												</tr>
+											{% endfor %}
+											
+										</tbody>
+									</table>
+								{% endif %}
+                            </div>
+                        </div>
+                        {%  if panierLocation is not null or commandes is not null %}
+                            <form action="{{ url('order_order') }}" method="POST" style="float: right;">
+                                <input type="hidden" value="{{ csrf_token('order') }}" name="_token">
+                                <input id="btn_soumission_commande" type="submit" name="order" value="Soumettre la demande" class="btn bouton_lien">
+                            </form>
+
+                        {% endif %}
+
+                    </div> <!-- /.row -->
+
+                </div> <!-- /.container -->
+
+            </section>
+
+        </main>
+    {% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+{% endblock %}

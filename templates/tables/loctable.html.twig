@@ -1,0 +1,46 @@
+<table class="table table-striped orders-table JQuery_table" >
+    <thead>
+    <tr>
+        <th>N° Commande</th>
+        <th>Photo</th>
+        <th>Nom de l'oeuvre</th>
+        <th>Client</th>
+        <th>Début réservation</th>
+        <th>Fin réservation</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for commande in commandes %}
+        <tr class="{{  nCommande == commande.id | str_pad ? 'activated_order' }}" >
+            <td>
+                <a href="{{ path('admin_commande',{id:commande.id}) }}">
+                    {{ commande.id | str_pad }}
+                </a>
+            </td>
+            <td>
+                <a href="{{ path('admin_commande',{id:commande.id}) }}">
+                    <img class="img-list img-responsive"
+                         src="{{vich_uploader_asset(commande.oeuvre, 'imageFile') | imagine_filter('thumbnail') }}"
+                         alt="{{ commande.oeuvre.nomOeuvre }}">
+                </a>
+            </td>
+            <td>
+                <a href="{{ path('admin_commande',{id:commande.id}) }}">
+                    {{ commande.oeuvre.nomOeuvre }}
+                </a>
+            </td>
+            <td>
+                <a href="{{ path('admin_commande',{id:commande.id}) }}">
+                    {{ commande.client.nom ~ ' ' ~ commande.client.prenom }}
+                </a>
+            </td>
+            <td>
+                {{ commande.datedebutres | date('d/m/y ') }}
+            </td>
+            <td>
+                {{ commande.datefinres | date('d/m/y') }}
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>

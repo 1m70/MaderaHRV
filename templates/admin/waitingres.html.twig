@@ -1,0 +1,37 @@
+{% extends "layout.html.twig" %}
+{% set active = 'admin_attente' %}
+{% set active_link = 'admin_attente' %}
+{% set nCommande = null  %}
+{% set processed = 0  %}
+{% set admin = true  %}
+{% block page_title %} Demandes en attentes{% endblock %}
+
+{% block content %}
+    <main class="no-bg">
+        <div class="container">
+            <div class="row animated fadeIn">
+                {% include "admin/adminComp/_navigation.html.twig" %}
+
+                                <div class=" col-xs-12 col-md-8">
+
+                                    <div class="content-box-header">
+                                        <div class="panel-title titre-moncompte"><p>Vos demandes en attente :  </p></div>
+                                    </div>
+
+                                    
+                                    <div class="oeuvre content-box-large box-with-header">
+                                        <div class="row">
+                                            {% include "tables/orderstable.html.twig" %}
+                                        </div>
+                                    </div> 
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+
+
+{% endblock %}

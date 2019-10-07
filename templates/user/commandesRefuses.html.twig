@@ -1,0 +1,38 @@
+{% extends "layout.html.twig" %}
+{% set active = 'admin_dispo' %}
+{% set active_link = 'admin_dispo' %}
+{% set admin = false %}
+{% set processed = true %}
+{% set nCommande = false %}
+{% block page_title %} Oeuvres Disponibles {% endblock %}
+
+{% block content %}
+    <main class="no-bg">
+        <div class="container">
+            <div class="row">
+                {# Navigation de l'admin#}
+                {% include "user/userComp/_navigation.html.twig" %}
+
+                                <div class=" col-xs-12 col-md-8">
+
+                                    <div class="content-box-header">
+                                        <div class="panel-title titre-moncompte"><p>Vous avez {{ nbrNonDispoOeuvres }} demande(s) refusée(s) </p></div>
+                                    </div>
+
+                                    
+                                    <div class="oeuvre content-box-large box-with-header">
+                                        <div class="row">
+                                            {% include 'tables/orderstable.html.twig' %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+
+
+{% endblock %}

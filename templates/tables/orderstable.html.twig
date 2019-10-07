@@ -1,0 +1,60 @@
+<table class="table table-striped orders-table JQuery_table">
+    <thead>
+        <tr>
+            <th>N° Commande</th>
+            <th>Photo</th>
+            <th>Nom de l'oeuvre</th>
+            {% if admin == true %}
+                <th>Client</th>
+            {% endif %}
+            <th>Type</th>
+            <th>Date de commande</th>
+            {% if processed == 1 and app.user.roles[0] == 'ROLE_LOUEUR'%}
+                <th>Etat</th>
+            {% endif %}
+        </tr>
+    </thead>
+    <tbody>
+    {% for commande in commandes %}
+        <tr class="{{  nCommande == commande.id | str_pad ? 'activated_order' }}" >
+            <td>
+                <a href="{{ path('admin_commande',{id:commande.id}) }}">
+                    {{ commande.id | str_pad }}
+                </a>
+            </td>
+            <td>
+                 <a href="{{ path('admin_commande',{id:commande.id}) }}">
+                <img class="img-list img-responsive"
+                     src="{{vich_uploader_asset(commande.oeuvre, 'imageFile') | imagine_filter('thumbnail') }}"
+                     alt="{{ commande.oeuvre.nomOeuvre }}">
+                </a>
+            </td>
+            <td>
+                <a href="{{ path('admin_commande',{id:commande.id}) }}">
+                    {{ commande.oeuvre.nomOeuvre }}
+                </a>
+            </td>
+            {% if admin == true %}
+                <td>
+                    <a href="{{ path('admin_client',{id:commande.client.id}) }}">
+                        {{ commande.client.nom ~ ' ' ~ commande.client.prenom }}
+                    </a>
+                </td>
+            {% endif %}
+            <td class="{{ commande.type == 1 ? 'type_achat' : 'type_location'  }}">
+                {% if commande.type == 0 %}Location{% else %}Achat{% endif %}
+            </td>
+            <td>
+                {{ commande.dateCommande | date('d/m/y H:i')}}
+            </td>
+            {% if processed == 1 and app.user.roles[0] == 'ROLE_LOUEUR'%}
+                <td class="tr_etat {{ commande.refuse == 1 ? 'td_refuse' : 'td_accept'}}  ">
+                    <p>
+                        {% if commande.refuse == 1 %} Refusé {% else %} Accepté {% endif %}
+                    </p>
+                </td>
+            {% endif %}
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>

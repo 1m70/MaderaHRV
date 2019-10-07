@@ -1,0 +1,37 @@
+{% extends "layout.html.twig" %}
+{% set active = 'admin_clients' %}
+{% set active_link = 'admin_clients' %}
+{% block page_title %} Clients {% endblock %}
+
+{% block content %}
+
+    <main class="no-bg">
+        <div class="container">
+            <div class="row">
+                {# Navigation de l'admin#}
+                {% include "admin/adminComp/_navigation.html.twig" %}
+
+                                <div class=" col-xs-12 col-md-8">
+
+                                    <div class="content-box-header">
+                                        <div class="panel-title titre-moncompte"><p>Vous avez {{ nbrClients }} client(s) en base </p></div>
+                                    </div>
+                                    <div class="oeuvre content-box-large box-with-header">
+                                        <div class="table-responsive">
+                                            {% include "tables/clientstable.html.twig" %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+{% endblock %}

@@ -1,0 +1,35 @@
+{% extends "layout.html.twig" %}
+
+{% set active = 'inscription' %}
+{% set active_link = 'inscription' %}
+{% block page_title %} Inscription {% endblock %}
+
+{% block content %}
+    <main class="no-bg">
+        <section id="inscription" class="animated fadeInLeftBig">
+
+            <div class="container" id="inscription_form">
+
+                <div class="col-xs-6 col-xs-push-3">
+
+                    <div class="content-box-header">
+                        <h1 class="form-signin-heading text-muted">Inscrivez-vous</h1>
+                    </div>
+
+                    <div class="content-box-large box-with-header">
+                        {{ form_start(form) }}
+                        {{ form_row(form.nom) }}
+                        {{ form_row(form.prenom) }}
+                        {{ form_row(form.mail) }}
+                        {{ form_row(form.plainPassword.first) }}
+                        {{ form_row(form.plainPassword.second) }}
+                        {{ form_end(form) }}
+                    </div>
+
+                </div>
+            </div>
+
+        </section>
+    </main>
+{% endblock %}
+

@@ -1,0 +1,40 @@
+{% extends "layout.html.twig" %}
+
+{% set active = 'monCompteUser' %}
+{% set active_link = 'monCompteUser' %}
+{% block page_title %} Mon Compte {% endblock %}
+
+{% block content %}
+
+<main class="no-bg">
+        <div class="row">
+
+            {# Navigation de l'admin#}
+            {% include "user/userComp/_navigation.html.twig" %}
+
+                <!-- Contenu du dashboard -->
+                <div class="col-xs-12 col-md-8">
+        
+                    <div class="content-box-header">
+                        <div class="panel-title titre-moncompte"><p>Bonjour {{ app.user.prenom }},</p></div>
+                    </div>
+
+				    <div class="content-box-large box-with-header">
+                        <p>&#192 ce jour, vous avez :</p>
+                        <ul class="recap-client">
+                            <li><a href="{{ path('user_reservation') }}"><i class="glyphicon glyphicon-record bleu"></i><p>{{ nbrWRes }} demandes en attente</p></a></li>
+                            <li><a href="{{ path('user_validate') }}"><i class="glyphicon glyphicon-record vert"></i><p>{{ nbrVres }} demandes validées</p></a></li>
+                            <li><a href="{{ path('user_refused', {username:app.user.nom} ) }}"><i class="glyphicon glyphicon-record orange"></i><p>{{ nbrRRes }} demande refusée</p></a></li>
+                            <li><a href="{{ path('modify_account') }}"><i class="glyphicon glyphicon-edit"></i><p>Modifier les informations de mon compte</p></a></li>
+                            
+                        </ul>
+				    </div>
+
+                </div>
+
+            </div> <!-- /.row -->
+        </div>
+    </section>
+</main>
+
+{% endblock %}

@@ -1,0 +1,172 @@
+{% extends "layout.html.twig" %}
+{% set active = 'admin_commande' %}
+{% set active_link = 'admin_commande' %}
+{% set processed = null %}
+{% set nCommande = commande.id | str_pad %}
+{% block page_title %} Commande n° {{ commande.id | str_pad }}{% endblock %}
+
+{% block content %}
+    <main class="no-bg">
+        <div class="container">
+            <div class="row animated fadeIn">
+                {% include "admin/adminComp/_navigation.html.twig" %}
+
+                <div class=" col-xs-12 col-md-8">
+
+                    <div class="content-box-header">
+                        <div class="panel-title titre-moncompte titre_commande">
+                            <p>
+                                Commande numéro : {{ commande.id | str_pad }}
+                                {% if commande.etat == 1 %}
+                                    <span class="tr_etat {{ commande.refuse == 1 ? 'td_refuse' : 'td_accept'}}  ">
+                                            {% if commande.refuse == 1 %} Refusé {% else %} Accepté {% endif %}
+                                        </span>
+                                {% endif %}
+                            </p>
+                        </div>
+                    </div>
+
+
+                    <div class="oeuvre content-box-large box-with-header">
+                        <div class="row">
+                            <div class="panel-title titre-moncompte commande_panel">
+                                <p class="commande-type
+                                    {% if commande.type == 0 %}location_header{% else %}vente_header{% endif %}">
+                                    Demande {% if commande.type == 0 %}de LOCATION{% else %}d'ACHAT{% endif %}
+                                </p>
+                                <div class="col-xs-8 texte-demande">
+                                    <div  class="table-commande row">
+                                        <div class="row">
+                                            <div class="col-xs-5 bold">Nom :</div>
+                                            <div class="col-xs-7">{{ commande.client.nom}} {{ commande.client.prenom }}</div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xs-5 bold">Oeuvre :</div>
+                                            <div class="col-xs-7">{{commande.oeuvre.nomOeuvre}}</div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xs-5 bold">Prix :</div>
+                                            <div class="col-xs-7">{% if commande.type == 0 %}{{ commande.oeuvre.prixLocationOeuvre }}{% else %}{{ commande.oeuvre.prixVenteOeuvre }} {% endif %} €</div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xs-5 bold">Date de commande :</div>
+                                            <div class="col-xs-7">{{commande.dateCommande | date('d/m/y H:i')}}</div>
+                                        </div>
+                                        {% if app.user.roles[0] == 'ROLE_LOUEUR' %}
+                                            <div class="row">
+                                                <div class="col-xs-5 bold">Disponibilité :</div>
+                                                <div class="col-xs-7">
+                                                    <p class="special_tr" style="background: {% if commande.oeuvre.dispo == true %} #117311 {%  else %} #761c19 {% endif %};float: left;">
+                                                    <p style="display: none">{{ commande.oeuvre.dispo }}</p>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        {% endif %}
+
+                                        {% if commande.etat == 1 and commande.type == 0 and commande.refuse == 0 %}
+                                            {% if commande.datedebutres %}
+                                                <div class="row">
+                                                    <div class="col-xs-5 bold">Début location :</div>
+                                                    <div class="col-xs-7">{{ commande.datedebutres | date('d/m/y  H:i') }}</div>
+                                                </div>
+                                            {% endif %}
+                                            {% if commande.datefinres %}
+                                                <div class="row">
+                                                    <div class="col-xs-5 bold">Fin location :</div>
+                                                    <div class="col-xs-7">{{ commande.datefinres | date('d/m/y  H:i') }}</div>
+                                                </div>
+                                            {% endif %}
+                                        {% endif %}
+
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-4">
+
+                                    <a href="{{ commande.oeuvre|oeuvrelink }}">
+                                        <img class="img-responsive" src="{{ vich_uploader_asset(commande.oeuvre, 'imageFile')  | imagine_filter('thumb')}}">
+                                    </a>
+                                    <p style="font-size: 15px; padding-top: 10px; color: #761c19;">
+                                        {% if lastSelledOeuvre %}
+                                            <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+                                            Oeuvre <a href="{{ path('admin_commande', {id:lastSelledOeuvre.id}) }}">vendu</a>
+                                        {% elseif lastLocOeuvre %}
+                                            <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+                                            Oeuvre actuellement en <a href="{{ path("admin_commande", {id:lastLocOeuvre.id}) }}">location</a>
+                                        {% endif %}
+                                    </p>
+                                </div>
+                        </div>
+                    </div>
+                    {% if commande.etat == 0 and app.user.roles[0] == 'ROLE_LOUEUR' %}
+                    <div class="btn-demande row">
+                        <div class="col-xs-12">
+                            <form class="form" action="{{ path('admin_validate', {id: commande.id}) }}" role="form" method="post">
+                                <div class="form-actions">
+                                    {% if commande.type == 0 %}
+                                        <div class="form-group">
+                                            <label for="debutres">Début de location : </label>
+                                            <input type="text" name="debutres" class="datepicker" placeholder="Saisir une date">
+                                            <p>(Ne rien saisir en cas de refus)</p>
+                                        </div>
+                                    {% endif %}
+                                    <div class="row">
+                                        <div class="col-xs-6">
+                                            <input name = "accept" type="submit" class="btn btn-lg btn-block bouton_lien btn-succes" value="Accepter">
+                                        </div>
+
+                                        <div class="col-xs-6">
+                                            <div class="form-actions">
+                                                <input name = "decline" type="submit" class="btn btn-lg btn-block bouton_lien btn-danger" value="Refuser">
+                                            </div>
+                                        </div>
+                                        <input type="hidden" name="_token" value="{{ csrf_token('accept' ~ commande.id) }}">
+
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+
+                {% if app.user.roles[0] == 'ROLE_LOUEUR' %}
+                    <div class="content-box-header">
+                        <div class="panel-title titre-moncompte"><p>Autres commandes en attentes concernant cet oeuvre</p></div>
+                    </div>
+
+
+                    <div class="oeuvre content-box-large box-with-header">
+                        <div class="row">
+                            <div class="panel-title titre-moncompte commande_panel linked_orders">
+                                {% include "tables/orderstable.html.twig" %}
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+
+        </div>
+        </div>
+        </section>
+        </div>
+        </div>
+    </main>
+
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        $(document).ready(function(){
+            $( ".datepicker" ).datepicker({
+                format: 'dd-mm-yyyy',
+                autoclose: true,
+                orientation: 'bottom right',
+                todayHighlight: true
+            });
+        });
+    </script>
+
+{% endblock %}

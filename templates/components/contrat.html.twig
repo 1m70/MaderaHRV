@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+{% block content %}
+    <main class="no-bg">
+        <section id="contrat">
+            <div class="row">
+               <div class="col-xs-12">
+                   <p>
+                   <h2>CONTRAT {% if commande.type == false %}DE LOCATION {% else %} D'ACHAT  {% endif %}
+                       d’une œuvre d’art par <strong>{{ commande.client.nom }} {{ commande.client.prenom }}</strong></h2>
+                   <p><strong>Contrat n° {{ commande.id | str_pad }}</strong><br>
+                       Entre le(s) soussigné (s)<br></p>
+                   </p>
+               </div>
+                <p>
+                    <div class="col-xs-12">
+                        <table>
+                            <tr>
+                                <td>Nom : <strong>{{commande.client.nom}}</strong></td>
+                                <td>Prènom : <strong>{{commande.client.prenom}}</strong></td>
+                            </tr>
+                            <tr>
+                                <td>Raison Sociale :
+                                    {%  if commande.client.societe is not null %}
+                                        <strong>{{ commande.client.categorie.libelleCategorieClient }}</strong>,
+                                        <strong>{{commande.client.societe}} (Société)</strong>
+                                    {% else %}
+                                        <strong>{{ commande.client.categorie.libelleCategorieClient }}</strong>
+                                    {% endif %}
+                                </td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>Adresse : <strong>{{ commande.client.adresses[0].adresse }} </strong><br></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td><strong>{{ commande.client.adresses[0].cp }} {{commande.client.adresses[0].ville}}</strong></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>Téléphone portable : <strong>{{commande.client.mobile}}</strong></td>
+                            </tr>
+                            <tr>
+                                <td>Téléphone fixe : <strong>{{commande.client.telephone}}</strong></td>
+                            </tr>
+                            <tr>
+                                <td>Adresse électronique : <strong>{{commande.client.mail}}</strong></td>
+                            </tr>
+
+                        </table>
+                    </div>
+                </p>
+
+                <p>Ci-après dénommé(s) <strong>LE LOCATAIRE/emprunteur</strong>, et <br></p>
+
+                <table>
+                    <tr>
+                        <td><strong>Ecloz</strong></td>
+                    </tr>
+                    <tr>
+                        <td><strong>54 rue des bons enfants</strong></td>
+                    </tr>
+                    <tr>
+                        <td><strong> 0685842404 </strong></td>
+                        <td><strong>ecloze@hotmail.fr</strong></td>
+                    </tr>
+                </table>
+            </div>
+
+            {% if commande.type == false %}
+
+                <div class="row">
+                    <p>Ci-après dénommé <strong>LOUEUR</strong>, <br><strong>IL A ÉTÉ CONVENU CE QUI SUIT</strong> : <u>Un contrat de location d’oeuvre d’art dont les références et conditions particulières sont désignées ci-après :</u></p>
+                </div>
+                <div class="row">
+                    <h2>1-DESIGNATION : {{commande.oeuvre.nomOeuvre}}</h2>
+                    <table>
+                        <tr>
+                            <td>H * l * p : <strong>{{commande.oeuvre.hauteurOeuvre}} cm *
+                                    {{commande.oeuvre.largeurOeuvre}} cm *
+                                    {{commande.oeuvre.profondeurOeuvre}} cm
+                                </strong>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Support : <strong>{{commande.oeuvre.supportOeuvre }}</strong></td>
+                        </tr>
+                        <tr>
+                            <td>Poids : <strong>{{commande.oeuvre.poidsOeuvre}} kg</strong></td>
+                        </tr>
+                        <tr>
+                            <td>Prix : <strong> {{commande.oeuvre.prixVenteOeuvre}} €.</strong></td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div class="row">
+                    <h2>2- DUREE</h2>
+                    <p>La présente location est consentie à compter du <strong> {{commande.datedebutres | date}}</strong> jusqu’au <strong>{{commande.datefinres | date}}</strong>.</p>
+                </div>
+            {% else %}
+                <div class="row">
+                    <p>Ci-après dénommé <strong>LOUEUR</strong>, <br><strong>IL A ÉTÉ CONVENU CE QUI SUIT</strong> : <u>Un contrat de vente d’oeuvre d’art dont les références et conditions particulières sont désignées ci-après :</u></p>
+                </div>
+                <div class="row">
+                    <h2>1-DESIGNATION : {{commande.oeuvre.nomOeuvre}}</h2>
+                    <table>
+                        <tr>
+                            <td>Support : <strong>{{commande.oeuvre.supportOeuvre }}</strong></td>
+                        </tr>
+                        <tr>
+                            <td>H * l * p : <strong>{{commande.oeuvre.hauteurOeuvre}} cm *
+                                    {{commande.oeuvre.largeurOeuvre}} cm *
+                                    {{commande.oeuvre.profondeurOeuvre}} cm
+                                </strong>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Poids : <strong>{{commande.oeuvre.poidsOeuvre}} kg</strong></td>
+                        </tr>
+                        <tr>
+                            <td>Prix : <strong> {{commande.oeuvre.prixVenteOeuvre}} €.</strong></td>
+                        </tr>
+                    </table>
+                </div>
+            {% endif %}
+
+            <div class="row">
+                <h2>3- RESTITUTION</h2>
+                <p>La Restitution s’effectue à l’adresse du <strong>LOCATAIRE/emprunteur</strong>.</p>
+            </div>
+
+            <div class="row">
+                <h2>4- LES OBLIGATIONS DU LOCATAIRE/emprunteur – soin à apporter aux
+                    œuvres .</h2>
+                <p>Le Locataire s’engage à prendre toutes les mesures raisonnables afin que l’oeuvre ne soit pas endommagée, volée ou qu’elle ne se détériore pas.</p>
+                <h3>4-I ENVIRONNEMENT</h3>
+                <p>L’oeuvre d’art doit être protégée de la lumière directe du soleil, des conditions de chaleur ou de froid excessif, mais également de l’humidité. Elle ne doit pas être installée près d’appareils de chaleur, de points d’eau. </p>
+                <h3>4-II ASSURANCE</h3>
+                <p>Le locataire /emprunteur s’engage à avoir souscrit à une assurance multirisque auprès de la compagnie d’assurance de son choix contre tout vol, perte ou dégradation. Une attestation sera exigée par le loueur. Cette attestation devra préciser couvrir « les dommages aux biens mobiliers ».</p>
+                <h3>4-III RESPECT DE L’INTÉGRITÉ DES ŒUVRES</h3>
+                <p>ucune œuvre ne pourra être désencadrée ou modifiée durant sa location.</p>
+                <h3>4-IV REPRODUCTION</h3>
+                <p>Il est strictement interdit de reproduire les œuvres de quelque manière que ce soit et à quelque fin que ce soit. </p>
+                <h3>4-V CESSION SOUS-lOCATION</h3>
+                <p>Le locataire/emprunteur ne peut transférer le bénéfice de son contrat sans l’accord écrit du loueur. Le locataire/emprunteur s’engage donc à ne pas prêter les œuvres, à les maintenir dans le lieu prévu pour l’accrochage et dans l’usage pour lequel ils les loue.</p>
+                <h3>4-VI CHANGEMENT DE SITUATION </h3>
+                <p>En cas de déménagement, le LOCATAIRE/emprunteur doit avertir le LOUEUR deux semaines avant les changements prévus. Le LOCATAIRE assume les frais supplémentaires impliqués par un déménagement s’il y avait lieu.</p>
+            </div>
+
+            <div class="row">
+                <h2>5-ENGAGEMENT DU LOUEUR</h2>
+                <p>En cas de vente d’une œuvre louée, le LOUEUR s’engage à remplacer la dite œuvre par une œuvre du même artiste équivalente en terme de dimension et de prix de location selon la possibilité de choix du LOCATAIRE.</p>
+            </div>
+
+            <div class="row">
+                <h2>6-CONSTAT D’ETAT</h2>
+                <p>Un constat d’état est fait à l’accrochage. Un constat d’état est fait au décrochage. Si des dégradations sont constatées, elles seront facturées. En cas de dommage le locataire/emprunteur doit prévenir sous 24h le loueur. En aucun cas il ne peut prendre l’initiative de sa restauration. Aucune œuvre ne pourra être désencadrée ou modifiée durant sa location.</p>
+            </div>
+
+            <div class="row">
+                <h2>7- TRANSPORT</h2>
+                <p>Les œuvres louées seront transportées et installées par les soins du LOUEUR.</p>
+            </div>
+
+            <div class="row">
+                <h2>8- PROPRIÉTÉ DES ŒUVRES – DROITS D’AUTEUR</h2>
+                <p>Les œuvres louées appartiennent aux différents Artistes (ou collectionneurs privés) en pleine propriété (droit d’auteur et propriété intellectuelle et ce pour le monde entier). Toute reproduction est strictement interdite.</p>
+            </div>
+
+            <div class="row">
+                <h2>9- ACQUISITION</h2>
+                <p>Selon leur disposition, les œuvres pourront être acquises par l’emprunteur/locataire à tout moment. Les sommes préalablement versées par l’acheteur pour leur location seront déduites à hauteur de 80% du prix d’achat initialement fixé.</p>
+            </div>
+
+            <div class="row">
+                <h2>10- RÉSILIATION</h2>
+                <p>En cas de manquement aux obligations de ce contrat celui-ci sera résiliable de plein droit par le loueur huit jours après l’envoi d’une mise en demeure restée sans effet. Dans cette éventualité le locataire/emprunteur devra restituer à ses frais et immédiatement au loueur, au lieu fixé par lui, les œuvres, en bon état. En cas de non restitution, le loueur engagera les poursuites nécessaires. </p>
+            </div>
+            <div class="row">
+                <h2>11- RÉCAPITULATIF DES PIÈCES À FOURNIR conjointement à ce contrat signé</h2>
+                <ul>
+                    <li>Le constat d’état signé avec la mention lu et approuvé,</li>
+                    <li>L'attestation d’assurance multirisque habitation, précisant couvrir « les dommages aux biens mobiliers »,</li>
+                    <li>Le règlement de la location.</li>
+                </ul>
+            </div>
+            <div class="row">
+                <p>
+                    Je ({% if commande.type == 0 %}le LOCATAIRE {% else %}l'ACHETEUR{% endif %}), ai pris connaissance de ces pages expliquant les conditions de la location de l’oeuvre d’art m’obligeant à suivre chaque point à la lettre. Je m’engage à être responsable de l’oeuvre d’art pour la durée du contrat de location.
+                </p>
+            </div>
+            <div class="row">
+                <p>Fait à Rouen, Le {{ date  | date('d/m/y') }} en deux exemplaires dont un pour le locataire/emprunteur qui le reconnaît.</p>
+            </div>
+            <div class="row">
+                <table>
+                    <tr>
+                        <td width="50%">Signature  {% if commande.type == 0 %}du LOCATAIRE/emprunteur {% else %}de l'ACHETEUR{% endif %}</td>
+                        <td width="50%">Signature du LOUEUR</td>
+                    </tr>
+                    <tr>
+                        <td>(mention lu et approuvé)</td>
+                    </tr>
+                </table>
+            </div>
+            </div>
+            </div>
+
+        </section>
+    </main>
+{% endblock %}
+
+</body>
+</html>
+

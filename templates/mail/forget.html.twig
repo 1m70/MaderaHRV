@@ -1,0 +1,10 @@
+<div class="mail">
+    <h3>Bonjour {{ client.nom | upper}} {{ client.prenom }}</h3>
+    <p>Vous pouvez changer votre mot de passe en allant sur ce lien :
+        <a href="{{ url('security_reset_password_d',{token:client.resetToken}) }}">
+            {{ url('security_reset_password_d') }}
+        </a><br>
+        Attention ce lien n'est valide que 30 minutes
+
+    </p>
+</div>

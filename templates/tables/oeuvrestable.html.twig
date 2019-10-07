@@ -1,0 +1,55 @@
+<table class="table table-striped JQuery_table">
+
+    <thead>
+    <tr>
+        <th scope="col">Photo</th>
+        <th scope="col">Nom</th>
+        <th scope="col">Prix de Vente Atelier</th>
+        <th scope="col">Tarif Location</th>
+        <th scope="col">Special</th>
+        <th scope="col">Actions</th>
+    </tr>
+    </thead>
+
+    <tbody>
+
+    {% for oeuvre in oeuvres %}
+        <tr class="animated fadeIn">
+            <td>
+                <a href="{{ oeuvre | oeuvrelink }}">
+                    <img class="img-list img-responsive"
+                         src="{{vich_uploader_asset(oeuvre, 'imageFile') | imagine_filter('thumbnail') }}"
+                         alt="{{ oeuvre.nomOeuvre }}">                             </a>
+            </td>
+            <td>
+                <a href="{{ oeuvre | oeuvrelink }}">
+                    <span class="middle">{{ oeuvre.nomOeuvre }}</span>
+                </a>
+            </td>
+            <td>{{ oeuvre.prixVenteOeuvre }} €</td>
+            <td>{{ oeuvre.prixLocationOeuvre }} €</td>
+            <td>
+                <p class="special_tr" style="background: {% if oeuvre.special == true %} #117311 {%  else %} #761c19 {% endif %}">
+                    <p style="display: none">{{ oeuvre.special }}</p>
+                </p>
+            </td>
+            <td >
+                <a class="bouton-modifier" href="{{ url('admin_edit', {id: oeuvre.id}) }}">
+                    <i class="glyphicon glyphicon-edit"></i>
+                    <span class="hidden-xs hidden-sm "></span>
+                </a>
+                <a title="Supprimer"
+                   class="bouton-modifier oeuvre_to_delete"
+                   data-toggle="modal"
+                   data-target="#deleteModal"
+                   style="background: #761c19;margin-left: 5px;"
+                   data_id = {{ oeuvre.id }}>
+                    <span class="glyphicon glyphicon-trash"></span>
+                </a>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% include 'admin/modal/deleteoeuvre.html.twig' %}
+

@@ -1,0 +1,47 @@
+
+
+{% extends "layout.html.twig" %}
+
+{% set active = 'modifierCompteUser' %}
+{% set active_link = 'modifierCompteUser' %}
+{% block page_title %} Mon Compte {% endblock %}
+
+{% block content %}
+    <main class="no-bg">
+        <div class="row">
+
+            {%  if (app.user is not null and (app.user.roles[0] == 'ROLE_LOUEUR'))  %}
+                {% include "admin/adminComp/_navigation.html.twig" %}
+            {% else %}
+                {% include "user/userComp/_navigation.html.twig" %}
+            {% endif %}
+
+                                <div class="col-xs-offset-1 col-xs-10 col-md-6">
+                                    <div class="content-box-header modify_account">
+                                        <h2 class="text-center panel-title titre-moncompte">Modifier mon compte :</h2>
+                                    </div>
+                                    <div class="content-box-large box-with-header">
+                                        {{ form_start(form) }}
+                                            {{ form_widget(form) }}
+                                        {{ form_end(form) }}
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+            </div> <!-- /.row -->
+        </div>
+    </main>
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="//cdn.ckeditor.com/4.8.0/full/ckeditor.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/places.js@1.14.0"></script>
+    <script src="{{ asset('js/modifyAccount.js') }}"></script>
+{% endblock %}

@@ -1,0 +1,30 @@
+<section id="dashboard">
+
+    <div class="container">
+    
+        <div class="page-content">
+            <div class="row">
+                <div class="col-xs-12 col-md-4 sidebar" style="position: static">
+
+                    <div class=" content-box">
+
+                        <ul class="nav animated fadeIn">
+                            <!-- Main menu -->
+                            <li><a id="monCompteAdmin" href="{{ url('admin_index') }}"><i class="glyphicon glyphicon-home"></i> Tableau de Bord</a></li>
+                            <li><a id="demandeAttenteAdminMenu" href="{{ path('admin_reservation') }}"><i class="glyphicon glyphicon-record vert"></i> Demande(s) en attente(s)</a></li>
+                            <li><a id="demandeValideesAdminMenu" href="{{ path('admin_archives') }}"><i class="glyphicon glyphicon-record orange"></i> Demande(s) traitée(s)</a></li>
+                            <li><a id="locationAdminMenu" href="{{ path('admin_locations') }}"><i class="glyphicon glyphicon-record bleu"></i> Oeuvres actuellement en location</a></li>
+                            <li><a href="{{ path('admin_dispo') }}"><i class="glyphicon glyphicon-menu-hamburger vert"></i> Lister les &oelig;uvres disponibles</a></li>
+                            <li><a href="{{ path('admin_indispo') }}"><i class="glyphicon glyphicon-menu-hamburger orange"></i> Lister les &oelig;uvres indisponibles</a></li>
+                            <li><a href="{{ path('admin_vendus') }}"><i class="glyphicon glyphicon-menu-hamburger bleu"></i> Lister les &oelig;uvres vendues</a></li>
+                            <li><a href="{{ path('admin_add') }}"><i class="glyphicon glyphicon-plus vert"></i> Ajouter une &oelig;uvre</a></li>
+                            <li><a href="{{ path('admin_clients') }}"><i class="glyphicon glyphicon-user bleu"></i> Lister les clients</a></li>
+                            <li><a href="/admin/admin"><i class="fas fa-tools"></i> Gérer les entités</a></li>
+                            <li><a href="{{ path('modify_account') }}"><i class="glyphicon glyphicon-edit"></i>Modifier les informations de mon compte</a></li>
+                            <li><a href="{{ path('security_reset_password') }}"><i class="glyphicon glyphicon-random bleu"></i> Changer de mot de passe </a></li>
+                        </ul>
+
+                    </div>
+
+                </div>
+       
