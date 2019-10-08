@@ -27,11 +27,7 @@
 
                 <ul class="nav navbar-nav navbar-right">
                     {%  if is_granted('IS_AUTHENTICATED_FULLY')%}
-                        {%  if is_granted("ROLE_ADMIN")  %}
-                            <li><a {% if active_link == 'administration' %}  class="active_link" {% endif %} href="{{ path("admin_index") }}">Tableau de bord</a></li>
-                        {% else %}
-                            <li><a {% if active_link == 'administration' %}  class="active_link" {% endif %} href="">Tableau de bord</a></li>
-                        {% endif %}
+                        <li><a {% if active_link == 'administration' %}  class="active_link" {% endif %} href="{{ path("admin_index") }}">Tableau de bord</a></li>
                     {% endif %}
 
                     {%  if is_granted('IS_AUTHENTICATED_FULLY')%}

@@ -32,7 +32,7 @@ class Project
     private $dateEnd;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Customer", inversedBy="projects")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Customer", inversedBy="projects", cascade={"persist", "remove"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $customer;
@@ -51,6 +51,11 @@ class Project
      * @ORM\OneToOne(targetEntity="App\Entity\Plan", cascade={"persist", "remove"})
      */
     private $plan;
+
+    public function __construct()
+    {
+        $this->setCreationDate(new \DateTime());
+    }
 
     public function getId(): ?int
     {

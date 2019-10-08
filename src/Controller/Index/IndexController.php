@@ -66,35 +66,4 @@ class IndexController extends AbstractController
 
 		]);
 	}
-
-    
-
-    /**
-     * Nlocart
-     * @param Request $request
-     * @param CustomMailer $mailer
-     * @return Response
-     * @Route("/nlocart", name="index_nloc")
-     */
-	public function nlocart(Request $request, CustomMailer $mailer)
-    {
-	    $contact = new Contact();
-        $contactForm = $this->createForm(ContactType::class, $contact);
-        $contactForm->handleRequest($request);
-        if ($contactForm->isSubmitted() && $contactForm->isValid()) {
-            $this->addFlash('success', 'Votre message à bien été envoyé');
-            $mailer->sendNotification(
-                'NLOCArt: Message de '.$contact->getNom().' '. $contact->getPrenom(),
-                $contact->getMail(),
-                'ecloz',
-                $contact->getMail(),
-                'contact',
-                ['contact' => $contact]
-            );
-        }
-
-		return $this->render('static/nlocart.html.twig',[
-			'form'      => $contactForm->createView()
-		]);
-	}
 }
