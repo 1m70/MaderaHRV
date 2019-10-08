@@ -11,7 +11,7 @@ use Doctrine\Common\Persistence\ObjectManager;
 use Faker;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
-class AppFixturesUsers extends AbstractFixture implements OrderedFixtureInterface
+class AppFixtures extends Fixture
 {
     private $passwordEncoder;
 
@@ -76,16 +76,6 @@ class AppFixturesUsers extends AbstractFixture implements OrderedFixtureInterfac
 
 
 
-    }
-
-    /**
-     * Get the order of this fixture
-     *
-     * @return integer
-     */
-    public function getOrder()
-    {
-        return 1;
     }
 }
 

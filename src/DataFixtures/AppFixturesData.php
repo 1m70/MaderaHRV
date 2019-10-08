@@ -12,7 +12,7 @@ use Doctrine\Common\Persistence\ObjectManager;
 use Faker;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
-class AppFixturesData extends AbstractFixture implements OrderedFixtureInterface
+class AppFixturesData extends Fixture
 {
     private $passwordEncoder;
 
