@@ -19,22 +19,22 @@ class Customer
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $adress;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $city;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $country;
 
     /**
-     * @ORM\Column(type="string", length=50)
+     * @ORM\Column(type="string", length=50, nullable=true)
      */
     private $postalCode;
 
@@ -49,7 +49,7 @@ class Customer
     private $lastname;
 
     /**
-     * @ORM\Column(type="string", length=20)
+     * @ORM\Column(type="string", length=20, nullable=true)
      */
     private $phone;
 
@@ -57,6 +57,11 @@ class Customer
      * @ORM\OneToMany(targetEntity="App\Entity\Project", mappedBy="customer")
      */
     private $projects;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $email;
 
     public function __construct()
     {
@@ -198,5 +203,17 @@ class Customer
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function getEmail(): ?string
+    {
+        return $this->email;
+    }
+
+    public function setEmail(string $email): self
+    {
+        $this->email = $email;
+
+        return $this;
     }
 }

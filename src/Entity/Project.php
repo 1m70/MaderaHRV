@@ -38,14 +38,19 @@ class Project
     private $customer;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Saler", inversedBy="projects")
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="projects")
      */
-    private $Saler;
+    private $user;
 
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\Payment", cascade={"persist", "remove"})
      */
     private $payment;
+
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Plan", cascade={"persist", "remove"})
+     */
+    private $plan;
 
     public function getId(): ?int
     {
@@ -100,14 +105,14 @@ class Project
         return $this;
     }
 
-    public function getSaler(): ?Saler
+    public function getUser(): ?User
     {
-        return $this->Saler;
+        return $this->user;
     }
 
-    public function setSaler(?Saler $Saler): self
+    public function setUser(?User $user): self
     {
-        $this->Saler = $Saler;
+        $this->user = $user;
 
         return $this;
     }
@@ -120,6 +125,18 @@ class Project
     public function setPayment(?Payment $payment): self
     {
         $this->payment = $payment;
+
+        return $this;
+    }
+
+    public function getPlan(): ?Plan
+    {
+        return $this->plan;
+    }
+
+    public function setPlan(?Plan $plan): self
+    {
+        $this->plan = $plan;
 
         return $this;
     }

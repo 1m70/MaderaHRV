@@ -10,12 +10,3 @@ accueil:
         route: index
         permanent: true
 
-#mentions_legales:
-#    path:         /mentions-legales
-#    controller:   Symfony\Bundle\FrameworkBundle\Controller\TemplateController::templateAction
-#    defaults:
-#        template: static/mentionsLegales.html.twig
-
-
-deconnexion:
-    path: /deconnexion

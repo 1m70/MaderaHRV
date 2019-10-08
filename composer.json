@@ -36,6 +36,8 @@
         "vich/uploader-bundle": "^1.8"
     },
     "require-dev": {
+        "doctrine/doctrine-fixtures-bundle": "^3.2",
+        "fzaninotto/faker": "^1.8",
         "symfony/browser-kit": "^4.0",
         "symfony/css-selector": "^4.0",
         "symfony/dotenv": "^4.0",

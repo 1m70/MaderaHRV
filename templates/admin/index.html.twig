@@ -22,15 +22,9 @@
                                     <div class="content-box-large box-with-header">
                                         <p>&#192 ce jour, vous avez :</p>
                                         <ul class="recap animated fadeIn">
-
-                                            <li><a href="{{ path('admin_reservation') }}"><i class="glyphicon glyphicon-record vert"></i><p>{{ nbrWaitingCommandes }} demandes en attente</p></a></li>
-                                            <li><a href="{{ path('admin_archives') }}"><i class="glyphicon glyphicon-record orange"></i><p>{{ nbrProcessedCommandes }} demandes traitées</p></a></li>
-                                            <li><a href="{{ path('admin_archives') }}"><i class="glyphicon glyphicon-record bleu"></i><p>{{ nbrLocOeuvres }} &oelig;uvres en location</p></a></li>
-                                            <li><a href="{{ path('admin_dispo') }}"><i class="glyphicon glyphicon-menu-hamburger vert"></i><p>{{nbrDispoOeuvres}} &oelig;uvres disponibles</p></a></li>
-                                            <li><a href="{{ path('admin_indispo') }}"><i class="glyphicon glyphicon-menu-hamburger orange"></i><p>{{nbrNonDispoOeuvres}} &oelig;uvres indisponibles</p></a></li>
-                                            <li><a href="{{ path('admin_vendus') }}"><i class="glyphicon glyphicon-menu-hamburger bleu"></i><p>{{nbrOeuvresVendus}} &oelig;uvres vendus</p></a></li>
-                                            <li><a href="{{ path('admin_clients') }}"><i class="glyphicon glyphicon-user bleu"></i><p>{{nbrClients}} clients enregistr&#233;s</p></a></li>
-                                            
+                                            <li><a href=""><i class="glyphicon glyphicon-user bleu"></i><p>{{ data.nbCustomers}} clients enregistr&#233;s</p></a></li>
+                                            <li><a href=""><i class="glyphicon glyphicon-user vert"></i><p>{{ data.nbSalers}} commerciaux enregistr&#233;s</p></a></li>
+                                            <li><a href=""><i class="glyphicon glyphicon-record vert"></i><p>{{ data.nbProjects }} projects </p></a></li>
                                         </ul>
                                     </div>
                                 </div>

@@ -21,25 +21,23 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul id="main_menu" class="nav navbar-nav">
                     <li><a href="/#artiste" id="lienArtiste">L'artiste</a></li>
-                    <li><a href="" {% if active_link == 'catalogue' %} {{ "class=\"active_link\"" }} {% endif %}>Le Catalogue</a></li>
+                    <li><a href="" {% if active_link == 'catalogue' %}  class="active_link" {% endif %}>Le Catalogue</a></li>
                     <li><a href="/#contact" id="lienContact">Contact</a></li>
                 </ul>
 
                 <ul class="nav navbar-nav navbar-right">
-                    {%  if (app.user is not null and (app.user.roles[0] == 'ROLE_LOUEUR'))  %}
-                        <li><a {% if active_link == 'administration' %} {{ "class=\"active_link\"" }} {% endif %} href="">Administration</a></li>
-                    {% endif %}
-
-                    {%  if (app.user is not null and (app.user.roles[0] == 'ROLE_MEMBRE'))  %}
-                        <li><a href="" {% if active_link == 'monCompteUser' %} {{ "class=\"active_link\"" }} {% endif %}>Mon  Compte</a></li>
-                        <li><a href="" {% if active_link == 'panier' %} {{ "class=\"active_link\"" }} {% endif %}>Ma  Sélection</a></li>
+                    {%  if is_granted('IS_AUTHENTICATED_FULLY')%}
+                        {%  if is_granted("ROLE_ADMIN")  %}
+                            <li><a {% if active_link == 'administration' %}  class="active_link" {% endif %} href="{{ path("admin_index") }}">Tableau de bord</a></li>
+                        {% else %}
+                            <li><a {% if active_link == 'administration' %}  class="active_link" {% endif %} href="">Tableau de bord</a></li>
+                        {% endif %}
                     {% endif %}
 
                     {%  if is_granted('IS_AUTHENTICATED_FULLY')%}
-                        <li><a href="{{ url('deconnexion') }}">Déconnexion</a></li>
+                        <li><a href="{{ path('app_logout') }}">Déconnexion</a></li>
                     {% else %}
-                        <li><a href="" {% if active_link == 'login' %} {{ "class=\"active_link\"" }} {% endif %}>Se  Connecter</a></li>
-                        <li><a href="" {% if active_link == 'inscription' %} {{ "class=\"active_link\"" }} {% endif %}>Inscription</a>
+                        <li><a href="{{ path('app_login') }}" {% if active_link == 'login' %}  class="active_link" {% endif %}>Se  Connecter</a></li>
                     {% endif %}
                 </ul>
             </div><!-- /.navbar-collapse -->
