@@ -61,6 +61,11 @@ class Module
      */
     private $plan;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $name;
+
 
     public function getId(): ?int
     {
@@ -171,6 +176,18 @@ class Module
     public function setPlan(?Plan $plan): self
     {
         $this->plan = $plan;
+
+        return $this;
+    }
+
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function setName(string $name): self
+    {
+        $this->name = $name;
 
         return $this;
     }

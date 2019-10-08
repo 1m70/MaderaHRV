@@ -1,0 +1,36 @@
+{% extends "layout.html.twig" %}
+{% set active = 'new_project' %}
+{% set active_link = 'new_project' %}
+{% block page_title %} Nouveau projet {% endblock %}
+
+{% block content %}
+
+    <main class="no-bg">
+        <div class="container">
+            <div class="row">
+                {# Navigation de l'admin#}
+                {% include "admin/adminComp/_navigation.html.twig" %}
+
+                <div class=" col-xs-12 col-md-8">
+
+                    <div class="content-box-header">
+                        <div class="panel-title titre-moncompte"><h2>Nouveau Projet</h2></div>
+                    </div>
+                    <div class="oeuvre content-box-large box-with-header">
+                        {{ include('project/_form.html.twig') }}
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+        </section>
+        </div>
+        </div>
+    </main>
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+{% endblock %}
+

@@ -1,0 +1,67 @@
+{% extends "layout.html.twig" %}
+{% set active = 'admin_projects' %}
+{% set active_link = 'admin_projects' %}
+{% block page_title %} Projets {% endblock %}
+
+{% block content %}
+
+    <main class="no-bg">
+        <div class="container">
+            <div class="row">
+                {# Navigation de l'admin#}
+                {% include "admin/adminComp/_navigation.html.twig" %}
+
+                <div class=" col-xs-12 col-md-8">
+
+                    <div class="content-box-header">
+                        <div class="panel-title titre-moncompte"><p>Vous avez {{ projects|length }} projets(s) en base </p></div>
+                    </div>
+                    <div class="oeuvre content-box-large box-with-header">
+                        <div class="table-responsive">
+                            <table class="table table-striped clients_table JQuery_table">
+                                <thead>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Name</th>
+                                    <th>Client</th>
+                                    <th>CreationDate</th>
+                                    <th>DateEnd</th>
+                                    <th>actions</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for project in projects %}
+                                    <tr>
+                                        <td>{{ project.id }}</td>
+                                        <td>{{ project.name }}</td>
+                                        <td>{{ project.customer.firstname }} {{ project.customer.lastname }}</td>
+                                        <td>{{ project.creationDate ? project.creationDate|date('Y-m-d H:i:s') : '' }}</td>
+                                        <td>{{ project.dateEnd ? project.dateEnd|date('Y-m-d H:i:s') : '' }}</td>
+                                        <td>
+                                            <a href="{{ path('project_show', {'id': project.id}) }}">show</a>
+                                            <a href="{{ path('project_edit', {'id': project.id}) }}">edit</a>
+                                        </td>
+                                    </tr>
+                                {% else %}
+                                    <tr>
+                                        <td colspan="5">no records found</td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+        </section>
+        </div>
+        </div>
+    </main>
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+{% endblock %}

@@ -1,0 +1,38 @@
+{% extends "layout.html.twig" %}
+{% set active = 'new_saler' %}
+{% set active_link = 'new_saler' %}
+{% block page_title %} Nouveau commercial {% endblock %}
+
+{% block content %}
+
+    <main class="no-bg">
+        <div class="container">
+            <div class="row">
+                {# Navigation de l'admin#}
+                {% include "admin/adminComp/_navigation.html.twig" %}
+
+                <div class=" col-xs-12 col-md-8">
+
+                    <div class="content-box-header">
+                        <div class="panel-title titre-moncompte"> <h2>Create new Saler</h2></div>
+                    </div>
+                    <div class="oeuvre content-box-large box-with-header">
+                        {{ include('user/_form.html.twig') }}
+
+                        <a href="{{ path('user_index') }}">back to list</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+        </section>
+        </div>
+        </div>
+    </main>
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+{% endblock %}
+

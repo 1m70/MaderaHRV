@@ -1,0 +1,65 @@
+{% extends "layout.html.twig" %}
+{% set active = 'admin_clients' %}
+{% set active_link = 'admin_clients' %}
+{% block page_title %} Clients {% endblock %}
+
+{% block content %}
+
+    <main class="no-bg">
+        <div class="container">
+            <div class="row">
+                {# Navigation de l'admin#}
+                {% include "admin/adminComp/_navigation.html.twig" %}
+
+                <div class=" col-xs-12 col-md-8">
+
+                    <div class="content-box-header">
+                        <div class="panel-title titre-moncompte"><p>Vous avez {{ customers|length }} client(s) en base </p></div>
+                    </div>
+                    <div class="oeuvre content-box-large box-with-header">
+                        <div class="table-responsive">
+                            <table class="table table table-striped clients_table JQuery_table">
+                                <thead>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Firstname</th>
+                                    <th>Lastname</th>
+                                    <th>Projets</th>
+                                    <th>Email</th>
+                                    <th>actions</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for customer in customers %}
+                                    <tr>
+                                        <td>{{ customer.id }}</td>
+                                        <td>{{ customer.firstname }}</td>
+                                        <td>{{ customer.lastname }}</td>
+                                        <td>{{ customer.projects|length }}</td>
+                                        <td>{{ customer.email }}</td>
+                                        <td ><a class="bouton-modifier" href="{{ path('customer_show', {id:customer.id}) }}"><i class="glyphicon glyphicon-user"></i><span class="hidden-xs hidden-sm ">Visualiser</span></a></td>
+                                    </tr>
+                                {% else %}
+                                    <tr>
+                                        <td colspan="10">no records found</td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+        </section>
+        </div>
+        </div>
+    </main>
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+{% endblock %}
+
