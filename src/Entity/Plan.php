@@ -29,6 +29,11 @@ class Plan
     private $dateCreation;
 
     /**
+     * @ORM\Column(type="text")
+     */
+    private $blueprint;
+
+    /**
      * @ORM\OneToOne(targetEntity="App\Entity\Quotation", cascade={"persist", "remove"})
      */
     private $quotation;
@@ -37,6 +42,10 @@ class Plan
      * @ORM\OneToOne(targetEntity="App\Entity\Project", cascade={"persist", "remove"})
      */
     private $project;
+
+
+
+
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Module", mappedBy="plan", cascade={"persist", "remove"})
@@ -132,4 +141,24 @@ class Plan
 
         return $this;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getBlueprint()
+    {
+        return $this->blueprint;
+    }
+
+    /**
+     * @param mixed $blueprint
+     * @return Plan
+     */
+    public function setBlueprint($blueprint)
+    {
+        $this->blueprint = $blueprint;
+        return $this;
+    }
+
+
 }

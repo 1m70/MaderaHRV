@@ -13,6 +13,7 @@ use Dompdf\Dompdf;
 use Dompdf\Options;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -95,6 +96,36 @@ class PlanController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
+
+    /**
+     * @Route("/{id}/plan", name="plan_editPlan", methods={"GET","POST"})
+     * @param Request $request
+     * @param Plan $plan
+     * @param ObjectManager $manager
+     * @return Response
+     */
+    public function editPlan(Request $request, Plan $plan, ObjectManager $manager): Response
+    {
+        $form = $this->createForm(Plan1Type::class, $plan);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            /** @var Module $module */
+            Foreach($form->getData()->getModules() as $module){
+                $module->setPlan($plan);
+                $manager->persist($plan);
+            }
+            $manager->flush();
+            $quotationService = new QuotationService($plan, $manager);
+            $quotationService->calculateQuotation();
+            return $this->redirectToRoute('plan_show', ['id' => $plan->getId()]);
+        }
+
+        return $this->render('plan/plan.html.twig', [
+            'plan' => $plan
+        ]);
+    }
+
 
     /**
      * @Route("/{id}", name="plan_delete", methods={"DELETE"})
