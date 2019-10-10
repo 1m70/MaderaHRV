@@ -1,0 +1,149 @@
+{% extends "layout.html.twig" %}
+{% set active = 'admin_clients' %}
+{% set active_link = 'admin_clients' %}
+{% block page_title %} Plan {% endblock %}
+
+{% block content %}
+
+    <main class="no-bg">
+        <div class="container">
+            <div class="row">
+                {# Navigation de l'admin#}
+                {% include "admin/adminComp/_navigation.html.twig" %}
+
+                <div class=" col-xs-12 col-md-8">
+
+                    <div class="content-box-header">
+                        <div class="panel-title titre-moncompte">
+                            <p>Plan: {{ plan.name }}
+                                <span style="float: right">
+                                    <a href="{{ path('project_show', {id: plan.project.id}) }}">
+                                        Retour au Projet
+                                    </a> |
+                                    <a title="Modifier"
+                                       class="bouton-modifier"
+                                       href="{{ path('plan_edit', {id: plan.id}) }}">
+                                        <i class="glyphicon glyphicon-edit"></i>
+                                    </a>
+                                </span>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="oeuvre content-box-large box-with-header">
+                        <table class="table">
+                            <tbody>
+                            <tr>
+                                <th>Id</th>
+                                <td>{{ plan.id }}</td>
+                            </tr>
+                            <tr>
+                                <th>Projet</th>
+                                <td>{{ plan.project.name }}</td>
+                            </tr>
+                            <tr>
+                                <th>Name</th>
+                                <td>{{ plan.name }}</td>
+                            </tr>
+                            <tr>
+                                <th>DateCreation</th>
+                                <td>{{ plan.dateCreation ? plan.dateCreation|date('Y-m-d H:i:s') : '' }}</td>
+                            </tr>
+
+                            {% if plan.modules %}
+                                <tr>
+                                    <th>Modules  &nbsp;
+                                        <span class="glyphicon glyphicon-plus show_modules" style="cursor: pointer;" aria-hidden="true"></span>
+                                    </th>
+                                    <td>{{ plan.modules|length }}</td>
+                                </tr>
+                                {% set index = 1 %}
+                                {% for module in plan.modules %}
+                                    <tr style="display: none;" class="module">
+                                        <th class="col-xs-6"><div class="module_name">{{ module.name}}&nbsp;
+                                                <span class="glyphicon glyphicon-plus" style="cursor: pointer;" aria-hidden="true"></span></div></th>
+                                        <td class="col-xs-6">
+                                            <div class="module_description" style="display: none; text-align: left">
+                                                <div class="row">
+                                                    <div class="col-xs-6">Longueur:</div>
+                                                    <div class="col-xs-6">{{ module.length}} m</div>
+                                                    {% if module.width %}
+                                                        <div class="col-xs-6">Largeur:</div>
+                                                        <div class="col-xs-6">{{ module.width}} m</div>
+                                                    {% endif %}
+                                                    {% if module.type %}
+                                                        <div class="col-xs-6">Type:</div>
+                                                        <div class="col-xs-6">{{ module.type.label }}</div>
+                                                    {% endif %}
+                                                    {% if module.structure %}
+                                                        <div class="col-xs-6">Structure:</div>
+                                                        <div class="col-xs-6">{{ module.structure.name }}</div>
+                                                    {% endif %}
+                                                   {% if module.finition %}
+                                                       <div class="col-xs-6">Finition:</div>
+                                                       <div class="col-xs-6">{{ module.finition.label }}</div>
+                                                   {% endif %}
+                                                   {% if module.floor %}
+                                                        <div class="col-xs-6">Floor:</div>
+                                                        <div class="col-xs-6">{{ module.floor.type }}</div>
+                                                   {% endif %}
+                                                   {% if module.isolation %}
+                                                       <div class="col-xs-6">Isolation:</div>
+                                                       <div class="col-xs-6">{{ module.isolation.label }}</div>
+                                                   {% endif %}
+                                                   {% if module.coverage %}
+                                                       <div class="col-xs-6">Coverage:</div>
+                                                       <div class="col-xs-6">{{ module.coverage.type }}</div>
+                                                   {% endif %}
+
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    {% set index = index + 1 %}
+                                {% endfor %}
+                            {% endif %}
+                            <tr>
+                                <th>Devis</th>
+                                <td><a href="{{ path('admin_quotation',{id : plan.id}) }}">Générer un devis</a></td>
+                            </tr>
+                            <tr>
+                                <th>Prix HT</th>
+                                <td>{{ plan.quotation.prixHT|number_format(2, '.', ',') }} €</td>
+                            </tr>
+                            <tr>
+                                <th>Prix TTC</th>
+                                <td>{{ plan.quotation.prixTTC|number_format(2, '.', ',') }}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+        </section>
+        </div>
+        </div>
+    </main>
+
+{% endblock %}
+
+
+
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        $(function() {
+            $('.glyphicon-plus').click(function () {
+                $(this).parent().parent().next().find('.module_description').toggle();
+            });
+            $('.show_modules').click(function () {
+                $(".module").toggle();
+            });
+        });
+
+    </script>
+
+
+{% endblock %}

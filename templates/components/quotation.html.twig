@@ -1,0 +1,179 @@
+
+<!doctype html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+          table {
+              width: 100%;
+              color: #717375;
+              font-family: helvetica;
+              line-height: 5mm;
+              border-collapse: collapse;
+          }
+        h2 { margin: 0; padding: 0; }
+        p { margin: 5px; }
+
+        .border th {
+            border: 1px solid #000;
+            color: white;
+            background: #000;
+            padding: 5px;
+            font-weight: normal;
+            font-size: 14px;
+            text-align: center;
+        }
+        .border td {
+            border: 1px solid #CFD1D2;
+            padding: 5px 10px;
+            text-align: center;
+        }
+        .no-border {
+            border-right: 1px solid #CFD1D2;
+            border-left: none !important;
+            border-top: none !important;
+            border-bottom: none !important;
+        }
+        .space { padding-top: 250px !important; }
+
+        footer {
+            position: absolute;
+            bottom: 0;
+        }
+
+        .10p { width: 10%; } .15p { width: 15%; }
+        .25p { width: 25%; } .50p { width: 50%; }
+        .60p { width: 60%; } .75p { width: 75%; }
+        .20p {width: 15%}
+    </style>
+</head>
+<body>
+{% block content %}
+        <table style="vertical-align: top;">
+            <tr>
+                <td class="75p">
+                    <strong>{{ plan.project.user.firstname ~ " " ~ plan.project.user.lastname }}</strong><br />
+                    {% if plan.project.user.adress %}
+                        {{ plan.project.user.adress }}<br/>
+                        {{ plan.project.user.postalCode ~", "~ plan.project.user.city }}<br>
+                    {% endif %}
+                    <strong>SIRET:</strong> 38 000 000 000 CSXX RCS Paris<br />
+                    {{ plan.project.user.email }}<br/>
+                    {{ plan.project.user.phone }}<br/>
+                </td>
+                <td class="25p">
+                    <strong>{{ plan.project.customer.firstname ~ " " ~ plan.project.customer.lastname }}</strong><br />
+                    {% if plan.project.user.adress %}
+                        {{ plan.project.user.adress }}<br/>
+                        {{ plan.project.customer.postalCode ~", "~ plan.project.customer.city }}<br />
+                    {% endif %}
+                    {{ plan.project.customer.email }}<br/>
+                    {{ plan.project.customer.phone }}<br/>
+                </td>
+            </tr>
+        </table>
+
+        <table style="margin-top: 50px;">
+            <tr>
+                <td class="50p"><h2>Devis n°{{ plan.quotation.id }}</h2></td>
+                <td class="50p" style="text-align: right;">Emis le {{ 'now'|date('d/m/Y') }}</td>
+            </tr>
+            <tr>
+                <td style="padding-top: 15px;" colspan="2"><strong>Objectif:</strong> {{ plan.project.name }}</td>
+            </tr>
+        </table>
+
+        <table style="margin-top: 30px;" class="border">
+            <thead>
+            <tr>
+                <th class="60p">Description</th>
+                <th class="20p">Prix Unitaire</th>
+                <th class="20p">Montant</th>
+            </tr>
+            </thead>
+            <tbody >
+                {%  for module in plan.modules %}
+                    {% if module.type.label == "Plancher sur dalle" or module.type.label == "Plancher porteur" or module.type.label == "Couverture" %}
+                        {% set unity = 'm²' %}
+                    {% else %}
+                        {% set unity = 'm' %}
+                    {% endif %}
+                    <tr>
+                        <td style="text-align: left">{{ module.name }}</td>
+                        <td></td>
+                        <td>{{ module.price }}€</td>
+                    </tr>
+                   {% if module.finition %}
+                       <tr>
+                           <td style="text-align: left; padding-left: 50px"> {{ module.finition.label }}</td>
+                           <td>{{ module.finition.price~"€/"~unity }}</td>
+                           <td>{{ module.finition.price * module.length}}€</td>
+                       </tr>v
+                   {% endif %}
+                   {% if module.structure %}
+                       <tr>
+                           <td style="text-align: left; padding-left: 50px"> {{ module.structure.name }}</td>
+                           <td>{{ module.structure.price~"€/"~unity }}</td>
+                           <td>{{ module.structure.price * module.length}}€</td>
+                       </tr>
+                   {% endif %}
+                   {% if module.isolation %}
+                       <tr>
+                           <td style="text-align: left; padding-left: 50px"> {{ module.isolation.label }}</td>
+                           <td>{{ module.isolation.price~"€/"~unity }}</td>
+                           <td>{{ module.isolation.price * module.length}}€</td>
+                       </tr>
+                   {% endif %}
+                   {% if module.floor %}
+                       <tr>
+                           <td style="text-align: left; padding-left: 50px"> {{ module.floor.type }}</td>
+                           <td>{{ module.floor.price~"€/"~unity }}</td>
+                           <td>{{ module.floor.price * module.length}}€</td>
+                       </tr>
+                   {% endif %}
+                   {% if module.coverage %}
+                        <tr>
+                            <td style="text-align: left; padding-left: 50px"> {{ module.coverage.type }}</td>
+                            <td>{{ module.coverage.price~"€/"~unity }}</td>
+                            <td>{{ module.coverage.price * module.length}}€</td>
+                        </tr>
+                   {% endif %}
+                {%  endfor %}
+
+                <tr>
+                    <td class="space" style="margin-bottom: 250px"></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+
+                <tr>
+                    <td colspan="1" class="no-border"></td>
+                    <td style="text-align: center;" rowspan="3"><strong>Total:</strong></td>
+                    <td>HT: {{ plan.quotation.prixHT }}€</td>
+                </tr>
+                <tr>
+                    <td colspan="1" class="no-border"></td>
+                    <td>TVA: {{ plan.quotation.prixTTC -  plan.quotation.prixHT }}€</td>
+                </tr>
+                <tr>
+                    <td colspan="1" class="no-border"></td>
+                    <td>TTC: {{ plan.quotation.prixTTC }}€</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <footer>
+            <hr />
+            <p>Fait a Rouen, le {{ "now"|date('d/m/Y') }}</p>
+            <p>Signature du particulier, suivie de la mension manuscrite "bon pour accord".</p>
+        </footer>
+
+{% endblock %}
+
+</body>
+</html>
+
