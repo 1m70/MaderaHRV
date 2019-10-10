@@ -46,6 +46,12 @@ class Quotation
      */
     private $state;
 
+    public function __construct()
+    {
+        $this->setState(0);
+        $this->setDateCreation(new \DateTime());
+    }
+
     public function getId(): ?int
     {
         return $this->id;

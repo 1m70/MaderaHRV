@@ -12,11 +12,17 @@ use App\Form\OeuvreSearchType;
 use App\Repository\OeuvreRepository;
 use Doctrine\Common\Persistence\ObjectManager;
 use Knp\Component\Pager\PaginatorInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ * Class IndexController
+ * @package App\Controller\Index
+ * @Security("is_granted('IS_AUTHENTICATED_FULLY')")
+ */
 class IndexController extends AbstractController
 {
 
@@ -51,7 +57,7 @@ class IndexController extends AbstractController
 		if ($contactForm->isSubmitted() && $contactForm->isValid()) {
 		    $this->addFlash('success', 'Votre message à bien été envoyé');
 		    $mailer->sendNotification(
-		        'NLOCArt: Message de '.$contact->getNom().' '. $contact->getPrenom(),
+		        'Madera: Message de '.$contact->getNom().' '. $contact->getPrenom(),
                 $contact->getMail(),
                 'ecloz',
                 $contact->getMail(),
