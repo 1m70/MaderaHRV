@@ -107,32 +107,41 @@
                         <td></td>
                         <td>{{ module.price }}€</td>
                     </tr>
-                    <tr>
-                        <td style="text-align: left; padding-left: 50px"> {{ module.finition.label }}</td>
-                        <td>{{ module.finition.price~"€/"~unity }}</td>
-                        <td>{{ module.finition.price * module.length}}€</td>
-                    </tr>
-                    <tr>
-                        <td style="text-align: left; padding-left: 50px"> {{ module.structure.name }}</td>
-                        <td>{{ module.structure.price~"€/"~unity }}</td>
-                        <td>{{ module.structure.price * module.length}}€</td>
-                    </tr>
-                    <tr>
-                        <td style="text-align: left; padding-left: 50px"> {{ module.isolation.label }}</td>
-                        <td>{{ module.isolation.price~"€/"~unity }}</td>
-                        <td>{{ module.isolation.price * module.length}}€</td>
-                    </tr>
-                    <tr>
-                        <td style="text-align: left; padding-left: 50px"> {{ module.floor.type }}</td>
-                        <td>{{ module.floor.price~"€/"~unity }}</td>
-                        <td>{{ module.floor.price * module.length}}€</td>
-                    </tr>
-                    <tr>
-                        <td style="text-align: left; padding-left: 50px"> {{ module.coverage.type }}</td>
-                        <td>{{ module.coverage.price~"€/"~unity }}</td>
-                        <td>{{ module.coverage.price * module.length}}€</td>
-                    </tr>
-
+                   {% if module.finition %}
+                       <tr>
+                           <td style="text-align: left; padding-left: 50px"> {{ module.finition.label }}</td>
+                           <td>{{ module.finition.price~"€/"~unity }}</td>
+                           <td>{{ module.finition.price * module.length}}€</td>
+                       </tr>v
+                   {% endif %}
+                   {% if module.structure %}
+                       <tr>
+                           <td style="text-align: left; padding-left: 50px"> {{ module.structure.name }}</td>
+                           <td>{{ module.structure.price~"€/"~unity }}</td>
+                           <td>{{ module.structure.price * module.length}}€</td>
+                       </tr>
+                   {% endif %}
+                   {% if module.isolation %}
+                       <tr>
+                           <td style="text-align: left; padding-left: 50px"> {{ module.isolation.label }}</td>
+                           <td>{{ module.isolation.price~"€/"~unity }}</td>
+                           <td>{{ module.isolation.price * module.length}}€</td>
+                       </tr>
+                   {% endif %}
+                   {% if module.floor %}
+                       <tr>
+                           <td style="text-align: left; padding-left: 50px"> {{ module.floor.type }}</td>
+                           <td>{{ module.floor.price~"€/"~unity }}</td>
+                           <td>{{ module.floor.price * module.length}}€</td>
+                       </tr>
+                   {% endif %}
+                   {% if module.coverage %}
+                        <tr>
+                            <td style="text-align: left; padding-left: 50px"> {{ module.coverage.type }}</td>
+                            <td>{{ module.coverage.price~"€/"~unity }}</td>
+                            <td>{{ module.coverage.price * module.length}}€</td>
+                        </tr>
+                   {% endif %}
                 {%  endfor %}
 
                 <tr>
