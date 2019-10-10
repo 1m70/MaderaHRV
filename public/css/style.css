@@ -12,13 +12,6 @@
     font-family: "lato_black";
     src: url("../font/Lato-Black.ttf") format("truetype");
 }
-.mb30 {
-    margin-bottom: 50px;
-}
-
-.glyphicon-plus {
-    font-size: 10px;
-}
 
 .alert_flash_group{
     margin-top: 20px;
@@ -858,7 +851,10 @@ input {
     text-align: center;
     font-size: 16px;
     background-color: #f3f3f3;
-    padding: 20px;
+    padding-bottom: 20px;
+    padding-top: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
     margin-bottom: 20px;
     max-width: 840px;
     margin-left: 35px;

@@ -43,19 +43,14 @@ class Plan
      */
     private $project;
 
-
-
-
-
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Module", mappedBy="plan", cascade={"persist", "remove"})
+     * @ORM\OneToMany(targetEntity="App\Entity\Module", mappedBy="plan")
      */
     private $modules;
 
     public function __construct()
     {
         $this->modules = new ArrayCollection();
-        $this->setDateCreation(new \DateTime());
     }
 
     public function getId(): ?int
@@ -142,23 +137,15 @@ class Plan
         return $this;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getBlueprint()
+    public function getBlueprint(): ?string
     {
         return $this->blueprint;
     }
 
-    /**
-     * @param mixed $blueprint
-     * @return Plan
-     */
-    public function setBlueprint($blueprint)
+    public function setBlueprint(string $blueprint): self
     {
         $this->blueprint = $blueprint;
+
         return $this;
     }
-
-
 }

@@ -16,7 +16,6 @@ class ProjectType extends AbstractType
             ->add('name')
             ->add('dateEnd', DateTimeType::class)
             ->add('customer', CustomerType::class)
-            ->add('plan', PlanType::class)
         ;
     }
 

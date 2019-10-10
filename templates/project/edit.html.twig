@@ -1,36 +1,13 @@
-{% extends "layout.html.twig" %}
-{% set active = 'project' %}
-{% set active_link = 'project' %}
-{% block page_title %} Projet {% endblock %}
+{% extends 'base.html.twig' %}
 
-{% block content %}
+{% block title %}Edit Project{% endblock %}
 
-    <main class="no-bg">
-        <div class="container">
-            <div class="row">
-                {# Navigation de l'admin#}
-                {% include "admin/adminComp/_navigation.html.twig" %}
+{% block body %}
+    <h1>Edit Project</h1>
 
-                <div class=" col-xs-12 col-md-8">
+    {{ include('project/_form.html.twig', {'button_label': 'Update'}) }}
 
-                    <div class="content-box-header">
-                        <div class="panel-title titre-moncompte"><h2>Projet</h2></div>
-                    </div>
-                    <div class="oeuvre content-box-large box-with-header">
-                        {{ include('project/_form.html.twig') }}
-                        {{ form_widget(form.plan.vars.prototype.name)|e }}
-                    </div>
-                </div>
-            </div>
-        </div>
-        </div>
-        </section>
-        </div>
-        </div>
-    </main>
+    <a href="{{ path('project_index') }}">back to list</a>
 
-{% endblock %}
-
-{% block javascripts %}
-    {{ parent() }}
+    {{ include('project/_delete_form.html.twig') }}
 {% endblock %}

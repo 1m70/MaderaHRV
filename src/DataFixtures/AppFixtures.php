@@ -47,6 +47,7 @@ class AppFixtures extends Fixture
                 'password'
             ));
             $user->setRoles(["ROLE_USER"]);
+
             $user->setFirstname($faker->firstName);
             $user->setLastname($faker->lastName);
             $manager->persist($user);
@@ -70,7 +71,11 @@ class AppFixtures extends Fixture
             $project->setDateEnd($faker->dateTimeBetween("now", "+2 years"));
             $manager->persist($project);
         }
+
         $manager->flush();
+
+
+
     }
 }
 

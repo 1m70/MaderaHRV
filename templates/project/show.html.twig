@@ -14,7 +14,7 @@
                 <div class=" col-xs-12 col-md-8">
 
                     <div class="content-box-header">
-                        <div class="panel-title titre-moncompte"><h2>Projet: {{ project.name }}</h2></div>
+                        <div class="panel-title titre-moncompte"><h2>Projet {{ project.name }}</h2></div>
                     </div>
                     <div class="oeuvre content-box-large box-with-header">
                         <table class="table">
@@ -38,10 +38,6 @@
                             <tr>
                                 <th>DateEnd</th>
                                 <td>{{ project.dateEnd ? project.dateEnd|date('Y-m-d H:i:s') : '' }}</td>
-                            </tr>
-                            <tr>
-                                <th>Plan</th>
-                                <td><a href="{{ path('plan_show', {id: project.plan.id}) }}">{{ project.plan.name }}</a></td>
                             </tr>
                             </tbody>
                         </table>
