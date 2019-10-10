@@ -2,9 +2,11 @@
 
 namespace App\Controller\Index;
 
+use App\Entity\Plan;
 use App\Entity\Project;
 use App\Form\ProjectType;
 use App\Repository\ProjectRepository;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -12,6 +14,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * @Route("/project")
+ * @Security("is_granted('IS_AUTHENTICATED_FULLY')")
  */
 class ProjectController extends AbstractController
 {
@@ -36,11 +39,14 @@ class ProjectController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            /** @var Plan $plan */
+            $plan = $form->getData()->getPlan();
+            $plan->setProject($project);
             $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($plan);
             $entityManager->persist($project);
             $entityManager->flush();
-
-            return $this->redirectToRoute('project_index');
+            return $this->redirectToRoute('plan_edit', ['id' => $project->getPlan()->getId()]);
         }
 
         return $this->render('project/new.html.twig', [
@@ -58,7 +64,6 @@ class ProjectController extends AbstractController
             'project' => $project,
         ]);
     }
-
 
     /**
      * @Route("/{id}/edit", name="project_edit", methods={"GET","POST"})

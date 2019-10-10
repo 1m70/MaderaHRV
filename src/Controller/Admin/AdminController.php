@@ -18,6 +18,9 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ * @Security("is_granted('IS_AUTHENTICATED_FULLY')")
+ */
 class AdminController extends AbstractController
 {
 

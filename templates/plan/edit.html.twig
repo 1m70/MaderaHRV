@@ -1,0 +1,84 @@
+{% extends "layout.html.twig" %}
+{% set active = 'admin_clients' %}
+{% set active_link = 'admin_clients' %}
+{% block page_title %} Plan {% endblock %}
+
+{% block content %}
+
+    <main class="no-bg">
+        <div class="container">
+            <div class="row">
+                {# Navigation de l'admin#}
+                {% include "admin/adminComp/_navigation.html.twig" %}
+
+                <div class=" col-xs-12 col-md-8">
+
+                    <div class="content-box-header">
+                        <div class="panel-title titre-moncompte">
+                            <p>Editer le plan
+                                <span style="float: right">
+                                    <a href="{{ path('project_show', {id: plan.project.id}) }}">
+                                        Retour au Projet
+                                    </a>
+                                </span>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="oeuvre content-box-large box-with-header">
+
+                        {{ include('plan/_form.html.twig', {'button_label': 'Enregistrer'}) }}
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+        </section>
+        </div>
+        </div>
+    </main>
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        $(function() {
+
+            $('#plan1_modules div.form-group').addClass("col-xs-4");
+            $('#plan1_modules fieldset').addClass('mb30');
+
+            var index = $('#plan1_modules fieldset').length;
+            var prototype = $('#plan1_modules').data('prototype');
+            $("#addModule").on('click', function(e){
+                var newForm = prototype.replace(/__name__/g, index++)
+                    .replace('Name', 'Module n°' + (index));
+                var divRow = $('<div class="row"></div>');
+                var divRemove = $('<div class="col-12 mt-4 mb-4 pb-4 border-bottom"></div>');
+                var btnRemove = $('<button class="btn btn-danger" style="float: right; margin-right: 30px"><span class="glyphicon glyphicon-minus"></span> Supprimer N° '+index+'</button><hr>');
+                divRow.append(divRemove);
+                divRemove.append(btnRemove);
+                var newDiv=$('<div></div>');
+                newDiv.append(newForm);
+                newDiv.append(divRow);
+                $(newDiv).appendTo('#plan1_modules').hide().slideDown("slow");
+                $('#plan1_modules div.form-group').addClass("col-xs-4");
+
+                e.preventDefault();
+
+
+                btnRemove.click(function(e) {
+                    $(this).parent().parent().parent().slideUp(1000).html(""); // Suppression du div parent parent
+                    index--;
+                    e.preventDefault();
+                });
+
+            });
+
+        });
+
+    </script>
+
+
+{% endblock %}
+

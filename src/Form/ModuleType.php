@@ -21,30 +21,13 @@ class ModuleType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name', TextType::class, [
-                'attr' => [
-                    'placeholder' => "Nom du module"
-                ]
-            ])
+            ->add('name')
 
-            ->add('length', NumberType::class,[
-                'label' => "Longueur",
-                'attr' => [
-                    'placeholder' => "Sélectionner la longueur"
-                ]
-            ])
-            ->add('width', NumberType::class,[
-                'label' => "Largeur",
-                'required' => false,
-                'attr' => [
-                    'placeholder' => "Sélectionner la largeur"
-                ]
-            ])
+            ->add('length')
+            ->add('width')
             ->add('type', EntityType::class, [
                 'class' => Type::class,
                 'choice_label' => 'label',
-                'label' => 'Type',
-                'placeholder' => "Sélectionner le type"
 
             ])
             ->add('finition', EntityType::class, [

@@ -22,183 +22,194 @@ var myhome = '{"floorplan":{"corners":{"71d4f128-ae80-3d58-9bd2-711c6ce6cdf2":{"
 
 var ViewerFloorplanner = function(blueprint3d)
 {
-  var canvasWrapper = '#floorplanner';
-  // buttons
-  var move = '#move';
-  var remove = '#delete';
-  var draw = '#draw';
+	var canvasWrapper = '#floorplanner';
+	// buttons
+	var move = '#move';
+	var remove = '#delete';
+	var draw = '#draw';
 
-  var activeStlye = 'btn-primary disabled';
+	var activeStlye = 'btn-primary disabled';
 
-  this.floorplanner = blueprint3d.floorplanner;
-  var scope = this;
-  function init()
-  {
-    $( window ).resize( scope.handleWindowResize );
+	this.floorplanner = blueprint3d.floorplanner;
+	var scope = this;
+	function init()
+	{
+		$( window ).resize( scope.handleWindowResize );
 
-    scope.handleWindowResize();
+		scope.handleWindowResize();
 
-    scope.floorplanner.addEventListener(BP3DJS.EVENT_MODE_RESET, function(mode)
-    {
-      $(draw).removeClass(activeStlye);
-      $(remove).removeClass(activeStlye);
-      $(move).removeClass(activeStlye);
+		scope.floorplanner.addEventListener(BP3DJS.EVENT_MODE_RESET, function(mode)
+		{
+			$(draw).removeClass(activeStlye);
+			$(remove).removeClass(activeStlye);
+			$(move).removeClass(activeStlye);
 
-      if (mode == BP3DJS.floorplannerModes.MOVE)
-      {
-          $(move).addClass(activeStlye);
-      }
-      else if (mode == BP3DJS.floorplannerModes.DRAW)
-      {
-          $(draw).addClass(activeStlye);
-      }
-      else if (mode == BP3DJS.floorplannerModes.DELETE)
-      {
-          $(remove).addClass(activeStlye);
-      }
+			if (mode == BP3DJS.floorplannerModes.MOVE)
+			{
+				$(move).addClass(activeStlye);
+			}
+			else if (mode == BP3DJS.floorplannerModes.DRAW)
+			{
+				$(draw).addClass(activeStlye);
+			}
+			else if (mode == BP3DJS.floorplannerModes.DELETE)
+			{
+				$(remove).addClass(activeStlye);
+			}
 
-      if (mode == BP3DJS.floorplannerModes.DRAW)
-      {
-        $("#draw-walls-hint").show();
-        scope.handleWindowResize();
-      }
-      else
-      {
-        $("#draw-walls-hint").hide();
-      }
-    });
+			if (mode == BP3DJS.floorplannerModes.DRAW)
+			{
+				$("#draw-walls-hint").show();
+				scope.handleWindowResize();
+			}
+			else
+			{
+				$("#draw-walls-hint").hide();
+			}
+		});
 
-    $(move).click(function()
-    {
-      scope.floorplanner.setMode(BP3DJS.floorplannerModes.MOVE);
-    });
+		$(move).click(function()
+		{
+			scope.floorplanner.setMode(BP3DJS.floorplannerModes.MOVE);
+		});
 
-    $(draw).click(function()
-    {
-      scope.floorplanner.setMode(BP3DJS.floorplannerModes.DRAW);
-    });
+		$(draw).click(function()
+		{
+			scope.floorplanner.setMode(BP3DJS.floorplannerModes.DRAW);
+		});
 
-    $(remove).click(function()
-    {
-      scope.floorplanner.setMode(BP3DJS.floorplannerModes.DELETE);
-    });
-  }
+		$(remove).click(function()
+		{
+			scope.floorplanner.setMode(BP3DJS.floorplannerModes.DELETE);
+		});
+	}
 
-  this.updateFloorplanView = function() {
-    scope.floorplanner.reset();
-  }
+	this.updateFloorplanView = function() {
+		scope.floorplanner.reset();
+	}
 
-  this.handleWindowResize = function() {
-    $(canvasWrapper).height(window.innerHeight - $(canvasWrapper).offset().top);
+	this.handleWindowResize = function() {
+		$(canvasWrapper).height(window.innerHeight - $(canvasWrapper).offset().top);
 
-	/* console.log(window.innerHeight - $(canvasWrapper).offset().to); */
+		/* console.log(window.innerHeight - $(canvasWrapper).offset().to); */
 
-    scope.floorplanner.resizeView();
-  };
-  init();
+		scope.floorplanner.resizeView();
+	};
+	init();
 };
 
 var mainControls = function(blueprint3d)
 {
-	  var blueprint3d = blueprint3d;
+	var blueprint3d = blueprint3d;
 
-	  function newDesign()
-	  {
-	    blueprint3d.model.loadSerialized(myhome);
-	  }
+	function newDesign()
+	{
+		blueprint3d.model.loadSerialized(myhome);
+	}
 
-	  function loadDesign()
-	  {
-	    files = $("#loadFile").get(0).files;
-      if(files.length == 0)
-      {
-          files = $("#loadFile2d").get(0).files;
-      }
-	    var reader  = new FileReader();
-	    reader.onload = function(event) {
-	        var data = event.target.result;
+	function loadDesign()
+	{
+		files = $("#loadFile").get(0).files;
+		if(files.length == 0)
+		{
+			files = $("#loadFile2d").get(0).files;
+		}
+		var reader  = new FileReader();
+		reader.onload = function(event) {
+			var data = event.target.result;
 
 			console.log(data);
 
-	        blueprint3d.model.loadSerialized(data);
-	    }
-	    reader.readAsText(files[0]);
-	  }
+			blueprint3d.model.loadSerialized(data);
+		}
+		reader.readAsText(files[0]);
+	}
 
-		function loadDesignAjax()
+	function loadDesignAjax()
+	{
+		files = $("#loadFile").get(0).files;
+		if(files.length == 0)
 		{
-			files = $("#loadFile").get(0).files;
-			if(files.length == 0)
-			{
-				files = $("#loadFile2d").get(0).files;
-			}
-			var reader  = new FileReader();
-			reader.onload = function(event) {
-				var data = event.target.result;
-
-				console.log(data);
-
-				blueprint3d.model.loadSerialized(data);
-			}
-			reader.readAsText(files[0]);
+			files = $("#loadFile2d").get(0).files;
 		}
+		var reader  = new FileReader();
+		reader.onload = function(event) {
+			var data = event.target.result;
 
-	  function saveDesign() {
-	    var data = blueprint3d.model.exportSerialized();
-	  	var jsonObj = $.parseJSON(data);
+			console.log(data);
 
-	  	console.log(jsonObj.floorplan.corners['4e3d65cb-54c0-0681-28bf-bddcc7bdb571']);
-
-	    var a = window.document.createElement('a');
-	    var blob = new Blob([data], {type : 'text'});
-	    a.href = window.URL.createObjectURL(blob);
-	    a.download = 'design.blueprint3d';
-	    document.body.appendChild(a)
-	    a.click();
-	    document.body.removeChild(a)
-	  }
-
-		function saveDesignAjax() {
-			var data = blueprint3d.model.exportSerialized();
-
-			var jsonObj = $.parseJSON(data);
-			var wallsJson = jsonObj.floorplan.walls;
-			var cornersJson = jsonObj.floorplan.corners;
-
-			$aWallResult = [];
-
-			console.log(wallsJson);
-
-			wallsJson.forEach(function (elementWall) {
-
-				$pointA = [cornersJson[elementWall.corner1].x, cornersJson[elementWall.corner1].y];
-				$pointB = [cornersJson[elementWall.corner2].x, cornersJson[elementWall.corner2].y];
-
-				$wallLength = Math.sqrt( Math.pow($pointB[0] - $pointA[0], 2) + Math.pow($pointB[1] - $pointA[1], 2) );
-				console.log($wallLength.toFixed(2));
-				console.log("nameMur")
-
-			});
-
-			/* $.ajax({
-				url: "/bps",
-				method: "get",
-				data: {dataParam: data}
-			}).success(function(msg){
-				console.log("eozefzefhizefz");
-			}).error(function(e){
-				console.log("Tu es dans l'erreur");
-			}); */
+			blueprint3d.model.loadSerialized(data);
 		}
+		reader.readAsText(files[0]);
+	}
+
+	function saveDesign() {
+		var data = blueprint3d.model.exportSerialized();
+		var jsonObj = $.parseJSON(data);
+
+		console.log(jsonObj.floorplan.corners['4e3d65cb-54c0-0681-28bf-bddcc7bdb571']);
+
+		var a = window.document.createElement('a');
+		var blob = new Blob([data], {type : 'text'});
+		a.href = window.URL.createObjectURL(blob);
+		a.download = 'design.blueprint3d';
+		document.body.appendChild(a)
+		a.click();
+		document.body.removeChild(a)
+	}
+
+	function saveDesignAjax() {
+		var data = blueprint3d.model.exportSerialized();
+
+		var jsonObj = $.parseJSON(data);
+		var wallsJson = jsonObj.floorplan.walls;
+		var cornersJson = jsonObj.floorplan.corners;
+
+		aWallResult = [];
+
+		console.log(wallsJson);
+
+		wallsJson.forEach(function (elementWall) {
+
+			pointA = [cornersJson[elementWall.corner1].x, cornersJson[elementWall.corner1].y];
+			pointB = [cornersJson[elementWall.corner2].x, cornersJson[elementWall.corner2].y];
+
+			wallLength = Math.sqrt( Math.pow(pointB[0] - pointA[0], 2) + Math.pow(pointB[1] - pointA[1], 2) );
+
+			console.log(wallLength.toFixed(2));
+			console.log("nameMur")
+
+			aWallResult.push(wallLength);
+		});
+		id = document.getElementById("plan").value;
+
+		$.ajax({
+            url: "/planAjax",
+            method: "POST",
+            data: {
+            	dataParam: data,
+				dataId: id,
+				aResultWall: aWallResult
+            }
+        }).success(function(response){
+        	if(response.status){
+				window.location.replace("http://127.0.0.1:8000/plan/" + id + "/edit")
+			} else {
+        		console.log("erreur lors de l'insetion");
+			}
+        }).error(function(e){
+            console.log("Tu es dans l'erreur");
+        });
+	}
 
 
 	function saveGLTF()
-	  {
-		  blueprint3d.three.exportForBlender();
-	  }
+	{
+		blueprint3d.three.exportForBlender();
+	}
 
-	  function saveGLTFCallback(o)
-	  {
+	function saveGLTFCallback(o)
+	{
 		var data = o.gltf;
 		var a = window.document.createElement('a');
 		var blob = new Blob([data], {type : 'text'});
@@ -207,35 +218,35 @@ var mainControls = function(blueprint3d)
 		document.body.appendChild(a);
 		a.click();
 		document.body.removeChild(a);
-	  }
+	}
 
-	  function saveMesh() {
-		    var data = blueprint3d.model.exportMeshAsObj();
-		    var a = window.document.createElement('a');
-		    var blob = new Blob([data], {type : 'text'});
-		    a.href = window.URL.createObjectURL(blob);
-		    a.download = 'design.obj';
-		    document.body.appendChild(a)
-		    a.click();
-		    document.body.removeChild(a)
-		  }
+	function saveMesh() {
+		var data = blueprint3d.model.exportMeshAsObj();
+		var a = window.document.createElement('a');
+		var blob = new Blob([data], {type : 'text'});
+		a.href = window.URL.createObjectURL(blob);
+		a.download = 'design.obj';
+		document.body.appendChild(a)
+		a.click();
+		document.body.removeChild(a)
+	}
 
-	  function init() {
+	function init() {
 
-	    $("#new").click(newDesign);
-	    $("#new2d").click(newDesign);
-	    $("#loadFile").change(loadDesign);
-	    $("#saveFile").click(saveDesign);
+		$("#new").click(newDesign);
+		$("#new2d").click(newDesign);
+		$("#loadFile").change(loadDesign);
+		$("#saveFile").click(saveDesign);
 
-      $("#loadFile2d").change(loadDesign);
-	    $("#saveFile2d").click(saveDesignAjax);
+		$("#loadFile2d").change(loadDesign);
+		$("#saveFile2d").click(saveDesignAjax);
 
-	    $("#saveMesh").click(saveMesh);
-	    $("#saveGLTF").click(saveGLTF);
-	    blueprint3d.three.addEventListener(BP3DJS.EVENT_GLTF_READY, saveGLTFCallback);
-	  }
+		$("#saveMesh").click(saveMesh);
+		$("#saveGLTF").click(saveGLTF);
+		blueprint3d.three.addEventListener(BP3DJS.EVENT_GLTF_READY, saveGLTFCallback);
+	}
 
-	  init();
+	init();
 }
 
 var GlobalProperties = function()
@@ -265,7 +276,7 @@ var GlobalProperties = function()
 		for (var i in this.guiControllers) // Iterate over gui controllers to update the values
 		{
 			this.guiControllers[i].updateDisplay();
-	    }
+		}
 	}
 
 	this.setGUIControllers = function(guiControls)
@@ -445,7 +456,7 @@ var ItemProperties = function(gui)
 			for (var i in this.guiControllers) // Iterate over gui controllers to update the values
 			{
 				this.guiControllers[i].updateDisplay();
-		    }
+			}
 
 			this.materialsfolder =  this.gui.addFolder('Materials');
 			this.materials = {};
@@ -659,67 +670,67 @@ function addBlueprintListeners(blueprint3d)
 	three.addEventListener(BP3DJS.EVENT_ITEM_SELECTED, function(o){itemSelected(o.item);});
 	three.addEventListener(BP3DJS.EVENT_ITEM_UNSELECTED, function(o){itemUnselected();});
 	three.addEventListener(BP3DJS.EVENT_WALL_CLICKED, (o)=>{wallClicked(o.item);});
-    three.addEventListener(BP3DJS.EVENT_FLOOR_CLICKED, (o)=>{floorClicked(o.item);});
-    three.addEventListener(BP3DJS.EVENT_FPS_EXIT, ()=>{$('#showDesign').trigger('click')});
+	three.addEventListener(BP3DJS.EVENT_FLOOR_CLICKED, (o)=>{floorClicked(o.item);});
+	three.addEventListener(BP3DJS.EVENT_FPS_EXIT, ()=>{$('#showDesign').trigger('click')});
 
-    function echoEvents(o)
-    {
+	function echoEvents(o)
+	{
 //    	console.log(o.type, o.item);
-    }
+	}
 
-    function addGUIFolder(o)
-    {
+	function addGUIFolder(o)
+	{
 //    	console.log(o.type, o.item);
-    	if(currentFolder)
+		if(currentFolder)
 		{
-    		selectionsFolder.removeFolder(currentFolder.name);
+			selectionsFolder.removeFolder(currentFolder.name);
 		}
-    	if(o.type == BP3DJS.EVENT_CORNER_2D_CLICKED)
+		if(o.type == BP3DJS.EVENT_CORNER_2D_CLICKED)
 		{
-    		currentFolder = CornerProperties(o.item, selectionsFolder);//getCornerPropertiesFolder(gui, o.item);
+			currentFolder = CornerProperties(o.item, selectionsFolder);//getCornerPropertiesFolder(gui, o.item);
 		}
-    	else if(o.type == BP3DJS.EVENT_ROOM_2D_CLICKED)
+		else if(o.type == BP3DJS.EVENT_ROOM_2D_CLICKED)
 		{
-    		currentFolder = RoomProperties(o.item, selectionsFolder);//getRoomPropertiesFolder(gui, );
+			currentFolder = RoomProperties(o.item, selectionsFolder);//getRoomPropertiesFolder(gui, );
 		}
-    	else if(o.type == BP3DJS.EVENT_WALL_2D_CLICKED)
+		else if(o.type == BP3DJS.EVENT_WALL_2D_CLICKED)
 		{
-    		currentFolder = Wall2DProperties(o.item, selectionsFolder);
+			currentFolder = Wall2DProperties(o.item, selectionsFolder);
 		}
-    	if(currentFolder)
+		if(currentFolder)
 		{
-    		currentFolder.open();
-    		selectionsFolder.open();
+			currentFolder.open();
+			selectionsFolder.open();
 		}
-    }
+	}
 
-    var model_floorplan = blueprint3d.model.floorplan;
-    model_floorplan.addEventListener(BP3DJS.EVENT_CORNER_2D_DOUBLE_CLICKED, echoEvents);
-    model_floorplan.addEventListener(BP3DJS.EVENT_WALL_2D_DOUBLE_CLICKED, echoEvents);
-    model_floorplan.addEventListener(BP3DJS.EVENT_ROOM_2D_DOUBLE_CLICKED, echoEvents);
+	var model_floorplan = blueprint3d.model.floorplan;
+	model_floorplan.addEventListener(BP3DJS.EVENT_CORNER_2D_DOUBLE_CLICKED, echoEvents);
+	model_floorplan.addEventListener(BP3DJS.EVENT_WALL_2D_DOUBLE_CLICKED, echoEvents);
+	model_floorplan.addEventListener(BP3DJS.EVENT_ROOM_2D_DOUBLE_CLICKED, echoEvents);
 
-    model_floorplan.addEventListener(BP3DJS.EVENT_NOTHING_CLICKED, addGUIFolder);
-    model_floorplan.addEventListener(BP3DJS.EVENT_CORNER_2D_CLICKED, addGUIFolder);
-    model_floorplan.addEventListener(BP3DJS.EVENT_WALL_2D_CLICKED, addGUIFolder);
-    model_floorplan.addEventListener(BP3DJS.EVENT_ROOM_2D_CLICKED, addGUIFolder);
+	model_floorplan.addEventListener(BP3DJS.EVENT_NOTHING_CLICKED, addGUIFolder);
+	model_floorplan.addEventListener(BP3DJS.EVENT_CORNER_2D_CLICKED, addGUIFolder);
+	model_floorplan.addEventListener(BP3DJS.EVENT_WALL_2D_CLICKED, addGUIFolder);
+	model_floorplan.addEventListener(BP3DJS.EVENT_ROOM_2D_CLICKED, addGUIFolder);
 
-    model_floorplan.addEventListener(BP3DJS.EVENT_CORNER_2D_HOVER, echoEvents);
-    model_floorplan.addEventListener(BP3DJS.EVENT_WALL_2D_HOVER, echoEvents);
-    model_floorplan.addEventListener(BP3DJS.EVENT_ROOM_2D_HOVER, echoEvents);
+	model_floorplan.addEventListener(BP3DJS.EVENT_CORNER_2D_HOVER, echoEvents);
+	model_floorplan.addEventListener(BP3DJS.EVENT_WALL_2D_HOVER, echoEvents);
+	model_floorplan.addEventListener(BP3DJS.EVENT_ROOM_2D_HOVER, echoEvents);
 
-    model_floorplan.addEventListener(BP3DJS.EVENT_CORNER_ATTRIBUTES_CHANGED, echoEvents);
-    model_floorplan.addEventListener(BP3DJS.EVENT_WALL_ATTRIBUTES_CHANGED, echoEvents);
-    model_floorplan.addEventListener(BP3DJS.EVENT_ROOM_ATTRIBUTES_CHANGED, echoEvents);
+	model_floorplan.addEventListener(BP3DJS.EVENT_CORNER_ATTRIBUTES_CHANGED, echoEvents);
+	model_floorplan.addEventListener(BP3DJS.EVENT_WALL_ATTRIBUTES_CHANGED, echoEvents);
+	model_floorplan.addEventListener(BP3DJS.EVENT_ROOM_ATTRIBUTES_CHANGED, echoEvents);
 
 
-    function deleteEvent(evt)
-    {
-    	console.log('DELETED ', evt);
-    }
+	function deleteEvent(evt)
+	{
+		console.log('DELETED ', evt);
+	}
 
-    model_floorplan.addEventListener(BP3DJS.EVENT_DELETED, deleteEvent);
+	model_floorplan.addEventListener(BP3DJS.EVENT_DELETED, deleteEvent);
 
-    BP3DJS.Configuration.setValue(BP3DJS.configSystemUI, false);
+	BP3DJS.Configuration.setValue(BP3DJS.configSystemUI, false);
 
 
 // three.skybox.toggleEnvironment(this.checked);
@@ -769,9 +780,9 @@ function construct2dInterfaceFolder(f, global, floorplanner)
 
 	var units = BP3DJS.Configuration.getStringValue(BP3DJS.configDimUnit);
 	var view2dindirect = {
-			'snapValue': BP3DJS.Dimensioning.cmToMeasureRaw(BP3DJS.Configuration.getNumericValue(BP3DJS.snapTolerance)),
-			'gridResValue': BP3DJS.Dimensioning.cmToMeasureRaw(BP3DJS.Configuration.getNumericValue(BP3DJS.gridSpacing))
-			};
+		'snapValue': BP3DJS.Dimensioning.cmToMeasureRaw(BP3DJS.Configuration.getNumericValue(BP3DJS.snapTolerance)),
+		'gridResValue': BP3DJS.Dimensioning.cmToMeasureRaw(BP3DJS.Configuration.getNumericValue(BP3DJS.gridSpacing))
+	};
 
 	f.removeFolder('2D Editor');
 
@@ -784,7 +795,7 @@ function construct2dInterfaceFolder(f, global, floorplanner)
 		blueprint3d.floorplanner.zoom();
 //		blueprint3d.floorplanner.view.zoom();
 		blueprint3d.floorplanner.view.draw();
-		});
+	});
 
 
 	var wallf = view2df.addFolder('Wall Measurements');
@@ -930,24 +941,24 @@ $(document).ready(function()
 {
 	dat.GUI.prototype.removeFolder = function(name)
 	{
-		  var folder = this.__folders[name];
-		  if (!folder) {
-		    return;
-		  }
-		  folder.close();
-		  this.__ul.removeChild(folder.domElement.parentNode);
-		  delete this.__folders[name];
-		  this.onResize();
+		var folder = this.__folders[name];
+		if (!folder) {
+			return;
+		}
+		folder.close();
+		this.__ul.removeChild(folder.domElement.parentNode);
+		delete this.__folders[name];
+		this.onResize();
 	}
 	// main setup
 	var opts =
-	{
+		{
 			floorplannerElement: 'floorplanner-canvas',
 			threeElement: '#viewer',
 			threeCanvasElement: 'three-canvas',
 			textureDir: "models/textures/",
 			widget: false
-	}
+		}
 	blueprint3d = new BP3DJS.BlueprintJS(opts);
 
 	console.log(blueprint3d)
@@ -1036,31 +1047,31 @@ $(document).ready(function()
 
 
 	$("#add-items").find(".add-item").mousedown(function(e) {
-	      var modelUrl = $(this).attr("model-url");
-	      var itemType = parseInt($(this).attr("model-type"));
-	      var itemFormat = $(this).attr('model-format');
-	      var metadata = {
-	        itemName: $(this).attr("model-name"),
-	        resizable: true,
-	        modelUrl: modelUrl,
-	        itemType: itemType,
-	        format: itemFormat,
+		var modelUrl = $(this).attr("model-url");
+		var itemType = parseInt($(this).attr("model-type"));
+		var itemFormat = $(this).attr('model-format');
+		var metadata = {
+			itemName: $(this).attr("model-name"),
+			resizable: true,
+			modelUrl: modelUrl,
+			itemType: itemType,
+			format: itemFormat,
 
-	      }
-	      console.log('ITEM TYPE ::: ', itemType);
-	      if([2,3,7,9].indexOf(metadata.itemType) != -1 && aWall.currentWall)
-    	  {
-	    	  var placeAt = aWall.currentWall.center.clone();
-	    	  blueprint3d.model.scene.addItem(itemType, modelUrl, metadata, null, null, null, false, {position: placeAt, edge: aWall.currentWall});
-    	  }
-	      else if(aWall.currentFloor)
-    	  {
-	    	  var placeAt = aWall.currentFloor.center.clone();
-	    	  blueprint3d.model.scene.addItem(itemType, modelUrl, metadata, null, null, null, false, {position: placeAt});
-    	  }
-	      else
-    	  {
-	    	  blueprint3d.model.scene.addItem(itemType, modelUrl, metadata);
-    	  }
-	    });
+		}
+		console.log('ITEM TYPE ::: ', itemType);
+		if([2,3,7,9].indexOf(metadata.itemType) != -1 && aWall.currentWall)
+		{
+			var placeAt = aWall.currentWall.center.clone();
+			blueprint3d.model.scene.addItem(itemType, modelUrl, metadata, null, null, null, false, {position: placeAt, edge: aWall.currentWall});
+		}
+		else if(aWall.currentFloor)
+		{
+			var placeAt = aWall.currentFloor.center.clone();
+			blueprint3d.model.scene.addItem(itemType, modelUrl, metadata, null, null, null, false, {position: placeAt});
+		}
+		else
+		{
+			blueprint3d.model.scene.addItem(itemType, modelUrl, metadata);
+		}
+	});
 });

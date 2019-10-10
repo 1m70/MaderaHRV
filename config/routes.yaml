@@ -9,3 +9,4 @@ accueil:
     defaults:
         route: index
         permanent: true
+

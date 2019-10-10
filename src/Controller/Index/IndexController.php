@@ -5,22 +5,29 @@ namespace App\Controller\Index;
 use App\Controller\Helper;
 use App\Controller\Swiftmailer\CustomMailer;
 use App\Entity\Contact;
+use App\Entity\Module;
 use App\Entity\Oeuvre;
 use App\Entity\OeuvreSearch;
 use App\Entity\Plan;
-use App\Entity\Project;
 use App\Form\ContactType;
 use App\Form\OeuvreSearchType;
+use App\Repository\ModuleRepository;
 use App\Repository\OeuvreRepository;
-use DateTime;
+use App\Repository\PlanRepository;
 use Doctrine\Common\Persistence\ObjectManager;
 use Knp\Component\Pager\PaginatorInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ * Class IndexController
+ * @package App\Controller\Index
+ * @Security("is_granted('IS_AUTHENTICATED_FULLY')")
+ */
 class IndexController extends AbstractController
 {
 
@@ -55,7 +62,7 @@ class IndexController extends AbstractController
 		if ($contactForm->isSubmitted() && $contactForm->isValid()) {
 		    $this->addFlash('success', 'Votre message à bien été envoyé');
 		    $mailer->sendNotification(
-		        'NLOCArt: Message de '.$contact->getNom().' '. $contact->getPrenom(),
+		        'Madera: Message de '.$contact->getNom().' '. $contact->getPrenom(),
                 $contact->getMail(),
                 'ecloz',
                 $contact->getMail(),
@@ -71,55 +78,45 @@ class IndexController extends AbstractController
 		]);
 	}
 
-
-
     /**
-     * @Route("/plan", name="project_plan", methods={"GET"})
+     * @Route("/planAjax", name="plan_editPlanAjax", methods={"POST"})
+     * @param PlanRepository $repoPlan
+     * @return JsonResponse
      */
-    public function plan(): Response
+    public function planBlueprintAjax(PlanRepository $repoPlan)
     {
-        return $this->render('project/plan.html.twig', [
-            'project' => '',
-        ]);
-    }
-
-
-    /**
-     * @Route("/bps", name="project_blueprint", methods={"GET"})
-     */
-    public function setBlueprintAjax(Request $req){
-        $blueprint = $_GET['dataParam'];
-
         $entityManager = $this->getDoctrine()->getManager();
 
-        $planDB = new Plan();
-        $dateOjd = new DateTime();
-        $planDB->setDateCreation($dateOjd);
-        $planDB->setBlueprint($blueprint);
-        $planDB->setName("TestBlueprint");
+        $dataTmp = $_POST['dataParam'];
+        $idTmp = $_POST['dataId'];
+        $aWallResult = $_POST['aResultWall'];
+
+        $plan = $repoPlan->find(intval($idTmp));
+        $bp = $plan->setBlueprint($dataTmp);
+
+        $i = 1;
+        foreach ($aWallResult as $wall){
+            $module = new Module();
+
+            $module->setName("Mur_" . $i);
+            $module->setLength(number_format($wall, 2));
+            $plan->addModule($module);
+            $entityManager->persist($module);
+
+            $i++;
+        }
 
         // tell Doctrine you want to (eventually) save the Product (no queries yet)
-        $entityManager->persist($planDB);
+        $entityManager->persist($bp);
 
         // actually executes the queries (i.e. the INSERT query)
         $entityManager->flush();
 
-        dd($blueprint);
 
-        $output = ['success' => true];
-        return new JsonResponse($output);
-    }
-
-    /**
-     * @Route("/bpg", name="project_blueprint", methods={"GET"})
-     */
-    public function getBlueprintAjax(Plan $plan){
-        $blueprint = $_GET['dataParam'];
-        $plan->getBlueprint();
-
-        dd($blueprint);
-
-        $output = ['success' => true];
-        return new JsonResponse($output);
+        return new JsonResponse(
+            [
+                'status' => true
+            ]
+        );
     }
 }
