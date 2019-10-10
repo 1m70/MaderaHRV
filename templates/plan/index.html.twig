@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Plan index{% endblock %}
+
+{% block body %}
+    <h1>Plan index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>DateCreation</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for plan in plans %}
+            <tr>
+                <td>{{ plan.id }}</td>
+                <td>{{ plan.name }}</td>
+                <td>{{ plan.dateCreation ? plan.dateCreation|date('Y-m-d H:i:s') : '' }}</td>
+                <td>
+                    <a href="{{ path('plan_show', {'id': plan.id}) }}">show</a>
+                    <a href="{{ path('plan_edit', {'id': plan.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('plan_new') }}">Create new</a>
+{% endblock %}
