@@ -66,20 +66,35 @@
                                                 <div class="row">
                                                     <div class="col-xs-6">Longueur:</div>
                                                     <div class="col-xs-6">{{ module.length}} m</div>
-                                                    <div class="col-xs-6">Largeur:</div>
-                                                    <div class="col-xs-6">{{ module.width}} cm</div>
-                                                    <div class="col-xs-6">Structure:</div>
-                                                    <div class="col-xs-6">{{ module.structure.name }}</div>
-                                                    <div class="col-xs-6">Finition:</div>
-                                                    <div class="col-xs-6">{{ module.finition.label }}</div>
-                                                    <div class="col-xs-6">Floor:</div>
-                                                    <div class="col-xs-6">{{ module.floor.type }}</div>
-                                                    <div class="col-xs-6">Type:</div>
-                                                    <div class="col-xs-6">{{ module.type.label }}</div>
-                                                    <div class="col-xs-6">Isolation:</div>
-                                                    <div class="col-xs-6">{{ module.isolation.label }}</div>
-                                                    <div class="col-xs-6">Coverage:</div>
-                                                    <div class="col-xs-6">{{ module.coverage.type }}</div>
+                                                    {% if module.width %}
+                                                        <div class="col-xs-6">Largeur:</div>
+                                                        <div class="col-xs-6">{{ module.width}} m</div>
+                                                    {% endif %}
+                                                    {% if module.type %}
+                                                        <div class="col-xs-6">Type:</div>
+                                                        <div class="col-xs-6">{{ module.type.label }}</div>
+                                                    {% endif %}
+                                                    {% if module.structure %}
+                                                        <div class="col-xs-6">Structure:</div>
+                                                        <div class="col-xs-6">{{ module.structure.name }}</div>
+                                                    {% endif %}
+                                                   {% if module.finition %}
+                                                       <div class="col-xs-6">Finition:</div>
+                                                       <div class="col-xs-6">{{ module.finition.label }}</div>
+                                                   {% endif %}
+                                                   {% if module.floor %}
+                                                        <div class="col-xs-6">Floor:</div>
+                                                        <div class="col-xs-6">{{ module.floor.type }}</div>
+                                                   {% endif %}
+                                                   {% if module.isolation %}
+                                                       <div class="col-xs-6">Isolation:</div>
+                                                       <div class="col-xs-6">{{ module.isolation.label }}</div>
+                                                   {% endif %}
+                                                   {% if module.coverage %}
+                                                       <div class="col-xs-6">Coverage:</div>
+                                                       <div class="col-xs-6">{{ module.coverage.type }}</div>
+                                                   {% endif %}
+
                                                 </div>
                                             </div>
                                         </td>

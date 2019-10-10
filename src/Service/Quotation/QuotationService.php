@@ -78,11 +78,11 @@ class QuotationService
         if (in_array($module->getType()->getLabel(), $this::$squareMeters)){
             $length = $length* $module->getWidth();
         }
-        $finitionPrice   = $length * $module->getFinition()->getPrice();
-        $coveragePrice   = $length * $module->getCoverage()->getPrice();
-        $floorPrice      = $length * $module->getFloor()->getPrice();
-        $isolationPrice  = $length * $module->getIsolation()->getPrice();
-        $structurePrice  = $length * $module->getStructure()->getPrice();
+        $finitionPrice   = $module->getFinition() ? $length * $module->getFinition()->getPrice(): 0;
+        $coveragePrice   = $module->getCoverage() ? $length * $module->getCoverage()->getPrice(): 0;
+        $floorPrice      = ($module->getFloor())   ? $length * $module->getFloor()->getPrice() : 0;
+        $isolationPrice  = $module->getIsolation()? $length * $module->getIsolation()->getPrice(): 0;
+        $structurePrice  = $module->getStructure()? $length * $module->getStructure()->getPrice(): 0;
         $modulePrice     = $finitionPrice + $coveragePrice + $floorPrice + $isolationPrice + $structurePrice;
         $module->setPrice($modulePrice);
         $this->manager->flush();

@@ -11,6 +11,8 @@ use App\Entity\Structure;
 use App\Entity\Type;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -19,38 +21,67 @@ class ModuleType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name')
+            ->add('name', TextType::class, [
+                'attr' => [
+                    'placeholder' => "Nom du module"
+                ]
+            ])
 
-            ->add('length')
-            ->add('width')
+            ->add('length', NumberType::class,[
+                'label' => "Longueur",
+                'attr' => [
+                    'placeholder' => "Sélectionner la longueur"
+                ]
+            ])
+            ->add('width', NumberType::class,[
+                'label' => "Largeur",
+                'required' => false,
+                'attr' => [
+                    'placeholder' => "Sélectionner la largeur"
+                ]
+            ])
             ->add('type', EntityType::class, [
                 'class' => Type::class,
                 'choice_label' => 'label',
+                'label' => 'Type',
+                'placeholder' => "Sélectionner le type"
 
             ])
             ->add('finition', EntityType::class, [
                 'class' => Finition::class,
                 'choice_label' => 'label',
+                'required' => false,
+                'placeholder' => "Sélectionner la finition"
 
             ])
             ->add('isolation', EntityType::class, [
                 'class' => Isolation::class,
                 'choice_label' => 'label',
+                'required' => false,
+                'placeholder' => "Sélectionner l'isolation"
 
             ])
             ->add('coverage', EntityType::class, [
                 'class' => Coverage::class,
                 'choice_label' => 'type',
+                'required' => false,
+                'label' => 'Couverture',
+                'placeholder' => "Sélectionner la couverture"
 
             ])
             ->add('floor', EntityType::class, [
                 'class' => Floor::class,
                 'choice_label' => 'type',
+                'label' => 'Sol',
+                'required' => false,
+                'placeholder' => "Sélectionner le sol"
 
             ])
             ->add('structure', EntityType::class, [
                 'class' => Structure::class,
                 'choice_label' => 'name',
+                'required' => false,
+                'placeholder' => "Sélectionner la structure"
 
             ])
         ;
