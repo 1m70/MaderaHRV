@@ -14,16 +14,11 @@
                     <span class="icon-bar"></span>
                 </button>
 
-                <a class="navbar-brand" href="/" id="logo_ecloz"><img src="{{ asset('img/oeuvres/logo-ecloz.png') }}"></a>
+                <a class="navbar-brand" href="/" id="logo_ecloz"><img src="{{ asset('img/house/madera_logo.png') }}"></a>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul id="main_menu" class="nav navbar-nav">
-                    <li><a href="/#artiste" id="lienArtiste">L'artiste</a></li>
-                    <li><a href="" {% if active_link == 'catalogue' %}  class="active_link" {% endif %}>Le Catalogue</a></li>
-                    <li><a href="/#contact" id="lienContact">Contact</a></li>
-                </ul>
 
                 <ul class="nav navbar-nav navbar-right">
                     {%  if is_granted('IS_AUTHENTICATED_FULLY')%}

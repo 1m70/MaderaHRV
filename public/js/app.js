@@ -127,20 +127,23 @@ var mainControls = function(blueprint3d)
 
 	function loadDesignAjax()
 	{
-		files = $("#loadFile").get(0).files;
-		if(files.length == 0)
-		{
-			files = $("#loadFile2d").get(0).files;
-		}
-		var reader  = new FileReader();
-		reader.onload = function(event) {
-			var data = event.target.result;
+		id = document.getElementById("plan").value;
 
-			console.log(data);
-
-			blueprint3d.model.loadSerialized(data);
-		}
-		reader.readAsText(files[0]);
+		$.ajax({
+			url: "/planLoadAjax",
+			method: "POST",
+			data: {
+				dataId: id
+			}
+		}).success(function(response){
+			if(response.status){
+				window.location.replace("http://127.0.0.1:8000/plan/" + id + "/edit")
+			} else {
+				console.log("erreur lors de l'insetion");
+			}
+		}).error(function(e){
+			console.log("Tu es dans l'erreur");
+		});
 	}
 
 	function saveDesign() {
@@ -166,9 +169,6 @@ var mainControls = function(blueprint3d)
 		var cornersJson = jsonObj.floorplan.corners;
 
 		aWallResult = [];
-
-		console.log(wallsJson);
-
 		wallsJson.forEach(function (elementWall) {
 
 			pointA = [cornersJson[elementWall.corner1].x, cornersJson[elementWall.corner1].y];

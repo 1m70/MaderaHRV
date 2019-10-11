@@ -19,7 +19,7 @@
         {% if app.session.get("loader") == null %}
             <div class="loader" id="page-loader">
                 <div class="loading-wrapper">
-                    <img src="{{ asset('img/oeuvres/logo-ecloz-loader.png') }}" alt="image du loader">
+                    <img src="{{ asset('img/house/favicon.png') }}" alt="image du loader">
                 </div>
             </div>
         {% endif %}
@@ -32,122 +32,20 @@
                 <div class="container">
                     <div class="row">
                         <div id="bloc_bienvenue">
-                            <img class="img-responsive" src="{{ asset('img/oeuvres/ecloz_bomb.jpg') }}" alt="bombes de peinture">
+                            <img class="img-responsive" src="{{ asset('img/house/casa_index.jpg') }}" alt="bombes de peinture">
                             <div class="col-xs-12 col-sm-6 col-md-5" id="bloc_texte_bienvenue">
 
-                                <h1 class="col-xs-8">Bienvenue dans l'univers d'<span class="bleu_canard"><a href="{{ path('accueil')}}#artiste">Ecloz</a></span></h1>
+                                <h1 class="col-xs-8">Bienvenue dans l'univers de <span class="bleu_canard">Madera</span>, la maison du futur. </h1>
                             </div>
                         </div>
 
                     </div> <!-- /.row -->
-
-                    <div class="row">
-                        <div id="bloc_a_la_une">
-                            <div class="col-xs-12">
-                                <h2>Dernières œuvres proposées</h2>
-                            </div>
-                            <div class="col-xs-5 col-sm-6 col-md-4" id="trait_bleu"></div>
-                        </div>
-
-                    </div> <!-- /.row -->
-
-                    <div class="row" id="oeuvres_a_la_une">
-                        {% for oeuvre in oeuvres %}
-
-                            <div class="col-xs-12 col-sm-3 apercu_catalogue">
-                            </div>
-
-                        {% endfor %}
-                    </div>
-
-                    <div class="row" id="lien_catalogue">
-
-                        <a href="" class="bouton_lien">Consulter le catalogue</a>
-
-                    </div>
 
                 </div> <!-- /.contanier -->
 
             </section> <!-- /#accueil -->
 
             <section id="artiste">
-
-                <div class="container">
-                    <div id="presentation_artiste">
-                        <div class="row">
-
-                            <div class="col-xs-12 col-sm-offset-1 col-sm-10 col-md-5" id="texte_presentation">
-                                <div class="col-xs-12">
-                                    <h1>Ecloz</h1>
-                                    <div class="social_media">
-                                        <a href="https://www.facebook.com/ecloz/" target="blank"><img src="{{ asset('img/oeuvres/logo_fb.png') }}" alt="facebook ecloz"></a>
-                                        <a href="https://www.youtube.com/channel/UCMyJeuM9KI5JY7Nu4A9wP7w" target="blank"><img src="{{ asset('img/oeuvres/logo_youtube.png') }}" alt="youtube ecloz"></a>
-                                        <a href="https://www.instagram.com/eclozartiste/?hl=fr" target="blank"><img src=".{{ asset('img/oeuvres/logo_instagram.png') }}" alt="instagram ecloz"></a>
-                                        <a href="http://www.ecloz.fr" target="blank"><img src=".{{ asset('img/oeuvres/logo_www.png') }}" alt="site web ecloz"></a>
-                                    </div>
-                                </div>
-                                <div class="presentation_artiste col-xs-12">
-                                    <p>
-                                        Peu de disciplines sont aussi exigeantes, authentiques et incomprises que le graff. Le graff c'est l'instant présent, un regard décalé et sans fard de la réalité, une pulsion. Guillaume Vincent a 15 ans quand il commence à peindre, à la fin des années 90, sous le pseudo "Ecloz". Friches industrielles, murs, trains, bords d'autoroutes, le graff devient très vite une passion dévorante.
-                                    </p>
-                                    <p>
-                                        Il prend des milliers de photos, améliore constamment sa technique, et se déplace partout en France et à l’étranger. En 2004, il sera arrêté et condamné à neuf mois de prison ferme. La peine sera réduite en appel à un sursis, assorti de 55 000 Euro d'amende.<br>Mais Ecloz n'abandonne pas.
-                                    </p>
-                                    <p>
-                                        Il se lance dans la déco, transmet sa passion, peint sur toile et expose ses photos. Il achète et restaure une boutique de la rue des Bons Enfants à Rouen, et y fait son atelier. Ecloz peint toujours dans les friches. Sa force est de n'avoir rien oublié de ses premiers pas, de ses exploits, des sanctions, ni du soutien inconditionnel de ses parents.
-                                    </p>
-                                    <p>
-                                        S'il est resté aussi fidèle à l'esprit du graff, c'est par la conviction qu’il a, au delà de l'intérêt Artistique, une vraie valeur. Celle de la réalisation et du dépassement de soi.
-                                    </p>
-                                    <p>
-                                        Loïc Carpentier
-                                    </p>
-                                </div>
-                            </div>
-
-                            <div class="col-xs-12 col-sm-offset-1 col-sm-10 col-md-offset-0 col-md-5" id="photo_ecloz">
-                                <img class="img-responsive center-block" src="{{ asset('img/oeuvres/photo-ecloz.jpg') }}" alt="Ecloz en photo">
-                            </div>
-
-                        </div> <!-- /.row -->
-                    </div>
-
-                    <div class="travail">
-                        <div class="row">
-                            <div class="col-xs-12 col-sm-offset-1 col-sm-10 col-md-offset-1 col-md-10">
-                                <div class="row">
-                                    <div class="col-xs-12">
-                                        <h2>Son travail</h2>
-                                    </div>
-                                    <div class="col-xs-5 col-sm-6 col-md-4" id="trait_bleu"></div>
-                                </div>
-                                <div class="row videos_travail">
-                                    <div class="col-xs-12 col-md-4 video">
-                                        <div class="embed-responsive embed-responsive-16by9">
-                                            <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/v20kBXSEm8s?rel=0" frameborder="0" allowfullscreen></iframe>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-xs-12 col-md-4 video">
-                                        <div class="embed-responsive embed-responsive-16by9">
-                                            <iframe src="https://www.youtube.com/embed/EJNREzvLyqs?rel=0" frameborder="0" allowfullscreen></iframe>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-xs-12 col-md-4 video">
-                                        <div class="embed-responsive embed-responsive-16by9">
-                                            <iframe src="https://www.youtube.com/embed/BPyx7NgQOx8?rel=0" frameborder="0" allowfullscreen></iframe>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                </div> <!-- /.container -->
 
             </section> <!-- /#artiste -->
 
@@ -165,7 +63,7 @@
                     </div>
 
                     <div class=" col-xs-12 col-sm-6 adresse_galerie">
-                        <p>La Galerie se situe au 54 Rue des Bons Enfant 76000 ROUEN</p>
+                        <p>Parc de La Vatine, 1 Rue Guglielmo Marconi, 76130 Mont-Saint-Aignan</p>
                         <div id="map"></div>
                     </div>
                 </div>
@@ -190,7 +88,7 @@
    $(document).ready(function () {
 
         // GOOGLE MAP sur la galerie
-       let center = [49.444672, 1.089560];
+       let center = [49.475273,1.0930323];
        let map = L.map('map').setView(center, 14);
        let token = "pk.eyJ1IjoiYWxpbGlob2MiLCJhIjoiY2pwbnhzMWJuMDdjNDQ4cDE2d3p1NXpyMCJ9.ajH7-kN_dNjTa35ItfjJnQ";
        L.tileLayer(`https://api.mapbox.com/v4/mapbox.streets/{z}/{x}/{y}.png?access_token=${token}`).addTo(map);
