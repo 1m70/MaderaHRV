@@ -1,62 +1,77 @@
-{% extends 'base.html.twig' %}
+{% extends "layout.html.twig" %}
+{% set active = 'commerciaux' %}
+{% set active_link = 'commerciaux' %}
+{% block page_title %} Commerciaux {% endblock %}
 
-{% block title %}User{% endblock %}
+{% block content %}
 
-{% block body %}
-    <h1>User</h1>
+    <main class="no-bg">
+        <div class="container">
+            <div class="row">
+                {# Navigation de l'admin#}
+                {% include "admin/adminComp/_navigation.html.twig" %}
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ user.id }}</td>
-            </tr>
-            <tr>
-                <th>Email</th>
-                <td>{{ user.email }}</td>
-            </tr>
-            <tr>
-                <th>Roles</th>
-                <td>{{ user.roles ? user.roles|json_encode : '' }}</td>
-            </tr>
-            <tr>
-                <th>Password</th>
-                <td>{{ user.password }}</td>
-            </tr>
-            <tr>
-                <th>Adress</th>
-                <td>{{ user.adress }}</td>
-            </tr>
-            <tr>
-                <th>City</th>
-                <td>{{ user.city }}</td>
-            </tr>
-            <tr>
-                <th>Country</th>
-                <td>{{ user.country }}</td>
-            </tr>
-            <tr>
-                <th>PostalCode</th>
-                <td>{{ user.postalCode }}</td>
-            </tr>
-            <tr>
-                <th>Firstname</th>
-                <td>{{ user.firstname }}</td>
-            </tr>
-            <tr>
-                <th>Lastname</th>
-                <td>{{ user.lastname }}</td>
-            </tr>
-            <tr>
-                <th>Phone</th>
-                <td>{{ user.phone }}</td>
-            </tr>
-        </tbody>
-    </table>
+                <div class=" col-xs-12 col-md-8">
 
-    <a href="{{ path('user_index') }}">back to list</a>
+                    <div class="content-box-header">
+                        <div class="panel-title titre-moncompte"> <h2>Commercial</h2></div>
+                    </div>
+                    <div class="oeuvre content-box-large box-with-header">
+                        <table class="table">
+                            <tbody>
+                            <tr>
+                                <th>Id</th>
+                                <td>{{ user.id }}</td>
+                            </tr>
+                            <tr>
+                                <th>Firstname</th>
+                                <td>{{ user.firstname }}</td>
+                            </tr>
+                            <tr>
+                                <th>Lastname</th>
+                                <td>{{ user.lastname }}</td>
+                            </tr>
+                            <tr>
+                                <th>Email</th>
+                                <td>{{ user.email }}</td>
+                            </tr>
+                            <tr>
+                                <th>Adress</th>
+                                <td>{{ user.adress }}</td>
+                            </tr>
+                            <tr>
+                                <th>City</th>
+                                <td>{{ user.city }}</td>
+                            </tr>
+                            <tr>
+                                <th>Country</th>
+                                <td>{{ user.country }}</td>
+                            </tr>
+                            <tr>
+                                <th>PostalCode</th>
+                                <td>{{ user.postalCode }}</td>
+                            </tr>
 
-    <a href="{{ path('user_edit', {'id': user.id}) }}">edit</a>
+                            <tr>
+                                <th>Phone</th>
+                                <td>{{ user.phone }}</td>
+                            </tr>
+                            </tbody>
+                        </table>
 
-    {{ include('user/_delete_form.html.twig') }}
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+        </section>
+        </div>
+        </div>
+    </main>
+
 {% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+{% endblock %}
+

@@ -80,4 +80,9 @@ class Gamme
 
         return $this;
     }
+
+    public function __toString()
+    {
+        return $this->getLabel();
+    }
 }

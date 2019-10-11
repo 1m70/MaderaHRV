@@ -178,4 +178,11 @@ class Plan
     }
 
 
+
+    public function __toString()
+    {
+        return $this->getName();
+    }
+
+
 }
