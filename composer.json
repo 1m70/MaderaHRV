@@ -6,7 +6,7 @@
         "ext-iconv": "*",
         "ext-json": "^1.7",
         "dompdf/dompdf": "^0.8.3",
-        "easycorp/easyadmin-bundle": "^2.0",
+        "easycorp/easyadmin-bundle": "^2.3",
         "h4cc/wkhtmltopdf-amd64": "^0.12.4",
         "knplabs/knp-paginator-bundle": "^2.8",
         "liip/imagine-bundle": "^2.1",

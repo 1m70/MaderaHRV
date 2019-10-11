@@ -2,7 +2,9 @@
 
 namespace App\Form;
 
+use App\Entity\Gamme;
 use App\Entity\Plan;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -16,6 +18,14 @@ class Plan1Type extends AbstractType
         $builder
             ->add('name',TextType::class,[
                 'label' => "Nom du plan"
+            ])
+            ->add('gamme', EntityType::class, [
+                    'class' => Gamme::class,
+                    'choice_label' => 'label',
+                    'required' => false,
+                    'placeholder' => "Sélectionner la gamme"
+
+
             ])
             ->add('modules',CollectionType::class, array(
                 'entry_type' => ModuleType::class,

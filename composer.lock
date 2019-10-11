@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b1432b7d7b8a1da94b6c0cb2506e4f97",
+    "content-hash": "8b2b1d99f98743b1ff8d9179d4055755",
     "packages": [
         {
             "name": "behat/transliterator",
@@ -1370,16 +1370,16 @@
         },
         {
             "name": "easycorp/easyadmin-bundle",
-            "version": "v2.3.0",
+            "version": "v2.3.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/EasyCorp/EasyAdminBundle.git",
-                "reference": "ca418dd69eac45f08100af9257f6bac0400729b9"
+                "reference": "e110a476848d1decbdd12b471c73d32f822d3267"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/EasyCorp/EasyAdminBundle/zipball/ca418dd69eac45f08100af9257f6bac0400729b9",
-                "reference": "ca418dd69eac45f08100af9257f6bac0400729b9",
+                "url": "https://api.github.com/repos/EasyCorp/EasyAdminBundle/zipball/e110a476848d1decbdd12b471c73d32f822d3267",
+                "reference": "e110a476848d1decbdd12b471c73d32f822d3267",
                 "shasum": ""
             },
             "require": {
@@ -1409,7 +1409,7 @@
                 "symfony/twig-bundle": "^4.2",
                 "symfony/validator": "^4.2",
                 "twig/extensions": "^1.5",
-                "twig/twig": "^2.10"
+                "twig/twig": "^2.11,>=2.11.3"
             },
             "require-dev": {
                 "doctrine/data-fixtures": "^1.3",
@@ -1451,7 +1451,7 @@
                 "backend",
                 "generator"
             ],
-            "time": "2019-08-10T16:50:27+00:00"
+            "time": "2019-10-08T17:43:59+00:00"
         },
         {
             "name": "egulias/email-validator",

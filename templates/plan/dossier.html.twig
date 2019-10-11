@@ -1,0 +1,121 @@
+{% extends "layout.html.twig" %}
+{% set active = 'admin_clients' %}
+{% set active_link = 'admin_clients' %}
+{% block page_title %} Plan {% endblock %}
+
+{% block content %}
+
+    <main class="no-bg">
+        <div class="container">
+            <div class="row">
+                {# Navigation de l'admin#}
+                {% include "admin/adminComp/_navigation.html.twig" %}
+
+                <div class=" col-xs-12 col-md-8">
+
+                    <div class="content-box-header">
+                        <div class="panel-title titre-moncompte">
+                            <p>Dossier technique: {{ plan.name }}</p>
+                        </div>
+                    </div>
+                    <div class="oeuvre content-box-large box-with-header">
+                        <table style="margin-top: 30px;width: 100%;" class="border">
+                            <thead>
+                            <tr>
+                                <th style="width: 60%;">Description</th>
+                                <th style="width: 20%;">Prix Unitaire</th>
+                                <th style="width: 20%;">Montant</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td  style="text-align: left">
+                                    {{ plan.gamme.label }}
+                                </td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            {%  for module in plan.modules %}
+                                {% if module.type.label == "Plancher sur dalle" or module.type.label == "Plancher porteur" or module.type.label == "Couverture" %}
+                                    {% set unity = 'm²' %}
+                                {% else %}
+                                    {% set unity = 'm' %}
+                                {% endif %}
+                                <tr>
+                                    <td style="text-align: left">{{ module.name }} ({{ module.length }}m)</td>
+                                    <td></td>
+                                    <td>{{ module.price }}€</td>
+                                </tr>
+                                {% if module.finition %}
+                                    <tr>
+                                        <td style="text-align: left; padding-left: 50px"> {{ module.finition.label }}</td>
+                                        <td>{{ module.finition.price~"€/"~unity }}</td>
+                                        <td>{{ module.finition.price * module.length}}€</td>
+                                    </tr>
+                                {% endif %}
+                                {% if module.structure %}
+                                    <tr>
+                                        <td style="text-align: left; padding-left: 50px"> {{ module.structure.name }}</td>
+                                        <td>{{ module.structure.price~"€/"~unity }}</td>
+                                        <td>{{ module.structure.price * module.length}}€</td>
+                                    </tr>
+                                {% endif %}
+                                {% if module.isolation %}
+                                    <tr>
+                                        <td style="text-align: left; padding-left: 50px"> {{ module.isolation.label }}</td>
+                                        <td>{{ module.isolation.price~"€/"~unity }}</td>
+                                        <td>{{ module.isolation.price * module.length}}€</td>
+                                    </tr>
+                                {% endif %}
+                                {% if module.floor %}
+                                    <tr>
+                                        <td style="text-align: left; padding-left: 50px"> {{ module.floor.type }}</td>
+                                        <td>{{ module.floor.price~"€/"~unity }}</td>
+                                        <td>{{ module.floor.price * module.length}}€</td>
+                                    </tr>
+                                {% endif %}
+                                {% if module.coverage %}
+                                    <tr>
+                                        <td style="text-align: left; padding-left: 50px"> {{ module.coverage.type }}</td>
+                                        <td>{{ module.coverage.price~"€/"~unity }}</td>
+                                        <td>{{ module.coverage.price * module.length}}€</td>
+                                    </tr>
+                                {% endif %}
+                            {%  endfor %}
+
+                            <tr>
+                                <td class="space" style="margin-bottom: 250px"></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+
+                            <tr>
+                                <td colspan="1" class="no-border"></td>
+                                <td style="text-align: center;" rowspan="3"><strong>Total:</strong></td>
+                                <td>HT: {{ plan.quotation.prixHT }}€</td>
+                            </tr>
+                            <tr>
+                                <td colspan="1" class="no-border"></td>
+                                <td>TVA: {{ plan.quotation.prixTTC -  plan.quotation.prixHT }}€</td>
+                            </tr>
+                            <tr>
+                                <td colspan="1" class="no-border"></td>
+                                <td>TTC: {{ plan.quotation.prixTTC }}€</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+        </section>
+        </div>
+        </div>
+    </main>
+
+{% endblock %}
+
+
+
+

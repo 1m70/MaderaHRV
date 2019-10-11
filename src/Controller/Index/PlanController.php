@@ -26,6 +26,8 @@ class PlanController extends AbstractController
 {
     /**
      * @Route("/", name="plan_index", methods={"GET"})
+     * @param PlanRepository $planRepository
+     * @return Response
      */
     public function index(PlanRepository $planRepository): Response
     {
@@ -36,6 +38,8 @@ class PlanController extends AbstractController
 
     /**
      * @Route("/new", name="plan_new", methods={"GET","POST"})
+     * @param Request $request
+     * @return Response
      */
     public function new(Request $request): Response
     {
@@ -59,6 +63,8 @@ class PlanController extends AbstractController
 
     /**
      * @Route("/{id}", name="plan_show", methods={"GET"})
+     * @param Plan $plan
+     * @return Response
      */
     public function show(Plan $plan): Response
     {
@@ -128,7 +134,24 @@ class PlanController extends AbstractController
 
 
     /**
+     * @Route("/dossier-technique/{id}", name="plan_dossier")
+     * @param Plan $plan
+     * @return Response
+     */
+    public function dossier(Plan $plan): Response
+    {
+        return $this->render('plan/dossier.html.twig', [
+            'plan' => $plan
+        ]);
+    }
+
+
+
+    /**
      * @Route("/{id}", name="plan_delete", methods={"DELETE"})
+     * @param Request $request
+     * @param Plan $plan
+     * @return Response
      */
     public function delete(Request $request, Plan $plan): Response
     {
@@ -140,10 +163,10 @@ class PlanController extends AbstractController
 
         return $this->redirectToRoute('plan_index');
     }
-
     /**
      * @Route("/quotation/{id}", name="admin_quotation", methods={"GET"})
      *
+     * @param Plan $plan
      * @return void
      */
     public function quotation(Plan $plan)
@@ -164,7 +187,7 @@ class PlanController extends AbstractController
         $dompdf->loadHtml($html);
         $dompdf->setPaper('A4', 'portrait');
         $dompdf->render();
-        $dompdf->stream("contrat.pdf", [
+        $dompdf->stream("devis.pdf", [
             "Attachment" => false
         ]);
     }

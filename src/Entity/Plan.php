@@ -29,7 +29,7 @@ class Plan
     private $dateCreation;
 
     /**
-     * @ORM\Column(type="text")
+     * @ORM\Column(type="text", nullable=true)
      */
     private $blueprint;
 
@@ -51,6 +51,11 @@ class Plan
      * @ORM\OneToMany(targetEntity="App\Entity\Module", mappedBy="plan", cascade={"persist", "remove"})
      */
     private $modules;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Gamme", inversedBy="plans")
+     */
+    private $gamme;
 
     public function __construct()
     {
@@ -157,6 +162,18 @@ class Plan
     public function setBlueprint($blueprint)
     {
         $this->blueprint = $blueprint;
+        return $this;
+    }
+
+    public function getGamme(): ?Gamme
+    {
+        return $this->gamme;
+    }
+
+    public function setGamme(?Gamme $gamme): self
+    {
+        $this->gamme = $gamme;
+
         return $this;
     }
 

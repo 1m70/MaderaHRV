@@ -33,6 +33,11 @@ class Finition
      */
     private $modules;
 
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $Finition;
+
     public function __construct()
     {
         $this->modules = new ArrayCollection();
@@ -94,6 +99,18 @@ class Finition
                 $module->setFinition(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getFinition(): ?int
+    {
+        return $this->Finition;
+    }
+
+    public function setFinition(?int $Finition): self
+    {
+        $this->Finition = $Finition;
 
         return $this;
     }

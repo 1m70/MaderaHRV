@@ -5,6 +5,7 @@ use App\Entity\Coverage;
 use App\Entity\Customer;
 use App\Entity\Finition;
 use App\Entity\Floor;
+use App\Entity\Gamme;
 use App\Entity\Isolation;
 use App\Entity\Project;
 use App\Entity\Structure;
@@ -74,6 +75,10 @@ class AppFixturesData extends Fixture
             $isolation = new Isolation();
             $isolation->setLabel("isolation_".$i)->setPrice(mt_rand(15,40));
             $manager->persist($isolation);
+
+            $gamme = new Gamme();
+            $gamme ->setLabel("Gamme_".$i);
+            $manager->persist($gamme);
         }
         $manager->flush();
     }

@@ -106,13 +106,19 @@
                                 <th>Devis</th>
                                 <td><a href="{{ path('admin_quotation',{id : plan.id}) }}">Générer un devis</a></td>
                             </tr>
+                           {% if plan.quotation %}
+                               <tr>
+                                   <th>Prix HT</th>
+                                   <td>{{ plan.quotation.prixHT|number_format(2, '.', ',') }} €</td>
+                               </tr>
+                               <tr>
+                                   <th>Prix TTC</th>
+                                   <td>{{ plan.quotation.prixTTC|number_format(2, '.', ',') }}</td>
+                               </tr>
+                           {% endif %}
                             <tr>
-                                <th>Prix HT</th>
-                                <td>{{ plan.quotation.prixHT|number_format(2, '.', ',') }} €</td>
-                            </tr>
-                            <tr>
-                                <th>Prix TTC</th>
-                                <td>{{ plan.quotation.prixTTC|number_format(2, '.', ',') }}</td>
+                                <th>Dossier technique</th>
+                                <td><a href="{{ path('plan_dossier', {id:plan.id}) }}">Lien</a></td>
                             </tr>
                             </tbody>
                         </table>

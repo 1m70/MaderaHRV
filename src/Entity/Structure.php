@@ -33,6 +33,11 @@ class Structure
      */
     private $modules;
 
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $stock;
+
     public function __construct()
     {
         $this->modules = new ArrayCollection();
@@ -94,6 +99,18 @@ class Structure
                 $module->setStructure(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getStock(): ?int
+    {
+        return $this->stock;
+    }
+
+    public function setStock(?int $stock): self
+    {
+        $this->stock = $stock;
 
         return $this;
     }

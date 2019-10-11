@@ -2,6 +2,7 @@
 namespace App\DataFixtures;
 
 use App\Entity\Customer;
+use App\Entity\Plan;
 use App\Entity\Project;
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -49,6 +50,10 @@ class AppFixtures extends Fixture
             $user->setRoles(["ROLE_USER"]);
             $user->setFirstname($faker->firstName);
             $user->setLastname($faker->lastName);
+            $user->setAdress($faker->address);
+            $user->setPostalCode($faker->postcode);
+            $user->setCity($faker->city);
+            $user->setPhone($faker->phoneNumber);
             $manager->persist($user);
             $users[] = $user;
         }
@@ -60,6 +65,10 @@ class AppFixtures extends Fixture
             $user->setEmail(sprintf('customer_%d@yopmail.com.com', $i));
             $user->setFirstname($faker->firstName);
             $user->setLastname($faker->lastName);
+            $user->setAdress($faker->address);
+            $user->setPostalCode($faker->postcode);
+            $user->setCity($faker->city);
+            $user->setPhone($faker->phoneNumber);
             $manager->persist($user);
 
             $project = new Project();
@@ -69,6 +78,13 @@ class AppFixtures extends Fixture
             $project->setCreationDate($faker->dateTimeBetween('-90 days', "now"));
             $project->setDateEnd($faker->dateTimeBetween("now", "+2 years"));
             $manager->persist($project);
+
+            $plan = new Plan();
+            $plan->setName("Plan_".$i);
+            $plan->setProject($project);
+            $project->setPlan($plan);
+            $manager->persist($plan);
+
         }
         $manager->flush();
     }

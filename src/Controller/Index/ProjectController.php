@@ -24,12 +24,14 @@ class ProjectController extends AbstractController
     public function index(ProjectRepository $projectRepository): Response
     {
         return $this->render('project/index.html.twig', [
-            'projects' => $projectRepository->findAll(),
+            'projects' => $projectRepository->findByUser($this->getUser()->getId()),
         ]);
     }
 
     /**
      * @Route("/new", name="project_new", methods={"GET","POST"})
+     * @param Request $request
+     * @return Response
      */
     public function new(Request $request): Response
     {
@@ -46,7 +48,7 @@ class ProjectController extends AbstractController
             $entityManager->persist($plan);
             $entityManager->persist($project);
             $entityManager->flush();
-            return $this->redirectToRoute('plan_edit', ['id' => $project->getPlan()->getId()]);
+            return $this->redirectToRoute("plan_editPlan", ['id' => $project->getPlan()->getId()]);
         }
 
         return $this->render('project/new.html.twig', [

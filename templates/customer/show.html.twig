@@ -61,17 +61,10 @@
                             </tbody>
                         </table>
 
-                        <button class="bouton-back">
-                            <a href="{{ path('customer_index') }}">back to list</a>
+                        <button class="bouton-modifier" >
+                            <a href="{{ path('customer_edit', {'id': customer.id}) }}" style="color: white;float: right">edit</a>
                         </button>
 
-                        <button class="bouton-modifier">
-                            <a href="{{ path('customer_edit', {'id': customer.id}) }}">edit</a>
-                        </button>
-
-                        <button class="bouton-supprimer">
-                            {{ include('customer/_delete_form.html.twig') }}
-                        </button>
                     </div>
                 </div>
             </div>
